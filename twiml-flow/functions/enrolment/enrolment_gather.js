@@ -31,7 +31,7 @@ exports.handler = function(context, event, callback) {
      }
   }
   
-  const enrol_code = digitArr.join('');
+  const enrol_code = digitArr.join(' ');
   console.log('Enrol Code ' + enrol_code)
   
   // moved this to before start stream so the speech start is closer to <gather>
@@ -42,7 +42,7 @@ exports.handler = function(context, event, callback) {
   
   const pros = say.prosody({
      rate: '75%',
-  }, `<say-as interpret-as="spell-out">${enrol_code}</say-as>`);
+  }, `${enrol_code}`);
   
   const start = twiml.start(); 
   const stream = start.stream({
