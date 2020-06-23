@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('connector:server');
 var http = require('http');
 var WebSocket = require('ws')
+const url = require('url');
+const { path } = require('../app');
 require('dotenv').config();
 
 /**
@@ -22,8 +24,6 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var wss = new WebSocket.Server({server});
-app.wss = wss
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -32,6 +32,7 @@ app.wss = wss
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+server.on('upgrade', onUpgrade)
 
 /**
  * Normalize a port into a number, string, or false.
@@ -90,5 +91,14 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
+  debug('Listening on ' + bind);
+}
+
+/**
+ * Event listener for Upgrade for Websocket
+ */
+function onUpgrade(request, socket, head) {
+  const pathname = url.parse(request.url).pathname;
+  debug('Upgrade request' + pathname)
+  app.handleUpgrade(pathname, request, socket, head);
 }
