@@ -5,6 +5,8 @@ const LANG = 'en-AU'
 const VOICE = 'Polly.Russell'
 const ALPHANUMERIC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
+const STREAM_WSS_URI = 'wss://dawong.au.ngrok.io/record'
+
 const ET_ALPHANUM = 'Alphanumeric'
 const ET_DIGITS = 'Digits'
 
@@ -47,7 +49,7 @@ exports.handler = function(context, event, callback) {
   const start = twiml.start(); 
   const stream = start.stream({
       name: 'Enrolment Stream',
-      url: 'wss://dawong.au.ngrok.io/',
+      url: STREAM_WSS_URI,
       track: 'inbound_track'
   })
   stream.parameter({
