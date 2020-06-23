@@ -25,21 +25,6 @@ var server = http.createServer(app);
 var wss = new WebSocket.Server({server});
 app.wss = wss
 
-// ws.on('connection', (webSocket) => {
-//   console.info("Total connected clients:", ws.clients.size);
-//   app.locals.clients = ws.clients;
-
-//   webSocket.on('message', (data) => {
-//     console.log(`${data}`);
-//     //ws.send('done')
-//   });
-
-//   webSocket.on('close', () => {
-//     console.info("Total connected clients:", ws.clients.size);
-//   });
-  
-// });
-
 /**
  * Listen on provided port, on all network interfaces.
  */

@@ -1,18 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-// router.get('/', async function(req, res, next) {
-//   console.log('routed');
-//   req.app.ws.once('connection', (wss) => {
-//     wss.on('message', function incoming(message) {
-//         console.log('received: %s', message);
-//     });
-
-//     wss.send(JSON.stringify('it works! Yeeee! :))' ));
-//   });
-// });
-
 router.use('/', function(req, res) {
 
   //let ws = req.ws
