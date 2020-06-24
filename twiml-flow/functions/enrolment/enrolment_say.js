@@ -1,6 +1,6 @@
 const twilio_version = require('twilio/package.json').version;
 
-const RETURN_WEBHOOK = 'https://webhooks.twilio.com/v1/Accounts/AC72c69ce8a6745ba82d93ba0b2c94cbfa/Flows/FW26c0e6ad9d690eef1c7a69f2d116663c?FlowEvent=return'
+//const RETURN_WEBHOOK = 'https://webhooks.twilio.com/v1/Accounts/AC72c69ce8a6745ba82d93ba0b2c94cbfa/Flows/FW26c0e6ad9d690eef1c7a69f2d116663c?FlowEvent=return'
 const LANG = 'en-AU'
 const VOICE = 'Polly.Russell'
 
@@ -13,7 +13,8 @@ exports.handler = function(context, event, callback) {
   let twiml = new Twilio.twiml.VoiceResponse();
   const result = event.SpeechResult.split('').join(' ');
   
-  
+  const return_url = `https://webhooks.twilio.com/v1/Accounts/${context.ACCOUNT_SID}/Flows/${context.FLOW_SID}?FlowEvent=return`
+
   const stop = twiml.stop();
   stop.stream({
       name: 'Enrolment Stream'
@@ -29,7 +30,7 @@ exports.handler = function(context, event, callback) {
     rate: '65%'
   }, result);
   
-  twiml.redirect(encodeURI(RETURN_WEBHOOK +'&SpeechResult=' + result))
+  twiml.redirect(encodeURI(return_url +'&SpeechResult=' + result))
   
   callback(null, twiml)
 }

@@ -5,8 +5,6 @@ const LANG = 'en-AU'
 const VOICE = 'Polly.Russell'
 const ALPHANUMERIC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
-const STREAM_WSS_URI = 'wss://dawong.au.ngrok.io/record'
-
 const ET_ALPHANUM = 'Alphanumeric'
 const ET_DIGITS = 'Digits'
 
@@ -17,6 +15,8 @@ function getRandomInt(max) {
 exports.handler = function(context, event, callback) {
 
   console.log(`Entered ${context.PATH} node version ${process.version} twilio version ${twilio_version}`);
+  console.log('Context ' + JSON.stringify(context));
+  console.log('Event ' + JSON.stringify(event));
 
   let twiml = new Twilio.twiml.VoiceResponse();
   let digitArr = [];
@@ -35,6 +35,8 @@ exports.handler = function(context, event, callback) {
   
   const enrol_code = digitArr.join(' ');
   console.log('Enrol Code ' + enrol_code)
+
+  const connector_uri = `wss://${context.CONNECTOR_SERVER}/record`
   
   // moved this to before start stream so the speech start is closer to <gather>
   const say = twiml.say({
@@ -49,7 +51,7 @@ exports.handler = function(context, event, callback) {
   const start = twiml.start(); 
   const stream = start.stream({
       name: 'Enrolment Stream',
-      url: STREAM_WSS_URI,
+      url: connector_uri,
       track: 'inbound_track'
   })
   stream.parameter({
