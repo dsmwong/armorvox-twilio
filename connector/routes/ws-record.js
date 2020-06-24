@@ -13,27 +13,12 @@ const wss = new WebSocket.Server({
 router.wss = wss;
 
 wss.on('connection', (ws) => {
-
   log('Media WS: Connection accepted');
   new MediaStreamHandler(ws);
-
-  // debug(`Connection Received. Number of clients = ${wss.clients.size}`);
-
-  // ws.on('message', processMessage) 
-  // // (message) => {
-  // //     debug('received: %s', message);
-  // // });
-
-  // ws.on('close', () => {
-  //   debug(`Connection Closed. Number of clients = ${wss.clients.size}`);
-  // });
-
-  ws.send(JSON.stringify('Connection /record Opened'));
 })
 
 // normal HTTP route
 router.get('/', function (req, res) {
-
   //let ws = req.ws
   debug('GET called')
   res.status(200).send({
