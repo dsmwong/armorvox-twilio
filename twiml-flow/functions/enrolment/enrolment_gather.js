@@ -15,8 +15,8 @@ function getRandomInt(max) {
 exports.handler = function(context, event, callback) {
 
   console.log(`Entered ${context.PATH} node version ${process.version} twilio version ${twilio_version}`);
-  console.log('Context ' + JSON.stringify(context));
-  console.log('Event ' + JSON.stringify(event));
+  // console.log('Context ' + JSON.stringify(context));
+  // console.log('Event ' + JSON.stringify(event));
 
   let twiml = new Twilio.twiml.VoiceResponse();
   let digitArr = [];

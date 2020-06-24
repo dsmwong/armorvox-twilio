@@ -7,11 +7,12 @@ const VOICE = 'Polly.Russell'
 exports.handler = function(context, event, callback) {
 
   console.log(`Entered ${context.PATH} node version ${process.version} twilio version ${twilio_version}`);
-  console.log('Context ' + JSON.stringify(context));
-  console.log('Event ' + JSON.stringify(event));
+  // console.log('Context ' + JSON.stringify(context));
+  // console.log('Event ' + JSON.stringify(event));
   
   let twiml = new Twilio.twiml.VoiceResponse();
   const result = event.SpeechResult.split('').join(' ');
+  const confidence = event.Confidence;
   
   const return_url = `https://webhooks.twilio.com/v1/Accounts/${context.ACCOUNT_SID}/Flows/${context.FLOW_SID}?FlowEvent=return`
 
@@ -20,7 +21,7 @@ exports.handler = function(context, event, callback) {
       name: 'Enrolment Stream'
   })
   
-  console.log('Result ' + result);
+  console.log('Result ' + result + '(' + confidence + ')');
   const say = twiml.say({
     voice: VOICE,
     language: LANG
@@ -30,7 +31,7 @@ exports.handler = function(context, event, callback) {
     rate: '65%'
   }, result);
   
-  twiml.redirect(encodeURI(return_url +'&SpeechResult=' + result))
+  twiml.redirect(encodeURI(return_url +'&SpeechResult=' + result + '&Confidence=' + confidence))
   
   callback(null, twiml)
 }
