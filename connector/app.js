@@ -7,8 +7,11 @@ const debug = require('debug')('connector:app');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const recresultRouter = require('./routes/recresult');
+
 const recordRouter = require('./routes/ws-record');
+const recresultRouter = require('./routes/recresult');
+
+const enrolRouter = require('./routes/enrol')
 
 const app = express();
 
@@ -20,8 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use('/record', recordRouter);
 app.use('/recresult', recresultRouter);
-app.use('/record', recordRouter); 
+
+app.use('/enrol', enrolRouter); 
 
 // Specific route handling for setting up websocket connection
 app.handleUpgrade = function(pathname, request, socket, head) {

@@ -86,6 +86,8 @@ class MediaStreamHandler {
         console.log('something went wrong', e)
       }
 
+      this.metaData.wavfile = `${this.metaData.callSid}-${i}.wav`
+
       // write meta data
       fs.writeFile(`media/${this.metaData.callSid}-${i}.json`, JSON.stringify(this.metaData, null, 2), (err) => {
         if (err) console.log(err);
