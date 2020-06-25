@@ -32,27 +32,45 @@ function requestPrint(req) {
 router.post('/', (req, res, next)=>{
   requestPrint(req);
 
-  let recObj = {}
-  recObj.caller = req.body.Caller;
-  recObj.callSid = req.body.CallSid;
-  recObj.speechResult = req.body.SpeechResult;
-  recObj.confidence = req.body.Confidence;
-
   let i = 0;
 
   try {
-    while (fs.existsSync(`media/${recObj.callSid}-${i}.txt`)) {
-      i++;
+    // while (fs.existsSync(`media/${recObj.callSid}-${i}.txt`)) {
+    //   i++;
+    // }
+
+    const metafile = `media/${req.body.CallSid}-${req.body.Count}.json`
+    if( fs.existsSync(metafile)) {
+      debug(`found ${metafile}`)
+      let data = JSON.parse(fs.readFileSync(metafile));
+      debug(`${JSON.stringify(data, null, 2)}`)
+      data.recognitionResult = {}
+      data.recognitionResult.caller = req.body.Caller
+      data.recognitionResult.callSid = req.body.CallSid
+      data.recognitionResult.speechResult = req.body.SpeechResult
+      data.recognitionResult.confidence = req.body.Confidence
+
+      debug(`writing back to ${metafile}`);
+      debug(`${JSON.stringify(data, null, 2)}`)
+      fs.writeFile(metafile, JSON.stringify(data, null, 2), (err) => {
+        if(err) {
+          debug(`error writing file: ${metafile}: ${err}`);
+          res.status(500).send({status: 'error', message: 'Write error: ' + err})
+
+        }
+        debug(`Result written into ${metafile}`);
+        res.status(200).send({status: 'ok', message: 'Result written to file', streamSid: data.streamSid })
+      });
+    } else {
+      debug(`File ${metafile} could not be found`);
+      res.status(200).send({status: 'error', message: 'Metafile not found'})
+      return;
     }
+  
   } catch (e) {
     console.log('something went wrong', e)
+    res.status(500).send({status: 'error', message: 'Error: ' + e})
   }
-
-  fs.writeFile(`media/${recObj.callSid}-${i}.txt`, JSON.stringify(recObj, null, 2), (err) => {
-    if (err) console.log(err);
-  });
-
-  res.status(200).send({status:'ok',message: 'Recognition Result received'});
 })
 
 module.exports = router;
