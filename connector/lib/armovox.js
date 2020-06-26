@@ -58,13 +58,6 @@ ArmorVoxClient.prototype.sendAndReceive = function (requestPath, method, body) {
 
   // debug(`Making request ${JSON.stringify(config, null, 2)}`)
 
-  axios.interceptors.response.use((response) => {
-    return response;
-}, function (error) {
-    // Do something with response error
-    debug(JSON.stringify(error, null, 2))
-    return Promise.reject(error);
-});
   const request = axios.request(config)
 
   return request.then( (response) => {
