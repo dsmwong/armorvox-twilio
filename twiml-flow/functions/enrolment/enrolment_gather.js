@@ -1,3 +1,7 @@
+// const { Say } = require('twilio/lib/twiml/VoiceResponse');
+
+// const VoiceResponseEx = require('./VoiceResponseEx');
+
 const twilio_version = require('twilio/package.json').version;
 
 const RETURN_WEBHOOK = 'https://webhooks.twilio.com/v1/Accounts/AC72c69ce8a6745ba82d93ba0b2c94cbfa/Flows/FW26c0e6ad9d690eef1c7a69f2d116663c?FlowEvent=return'
@@ -18,7 +22,11 @@ exports.handler = function(context, event, callback) {
   // console.log('Context ' + JSON.stringify(context));
   // console.log('Event ' + JSON.stringify(event));
 
-  let twiml = new Twilio.twiml.VoiceResponse();
+  // This uses the VoiceResponseEx (private function) to work around a missing feature
+  let path = Runtime.getFunctions()['enrolment/VoiceResponseEx'].path;
+  let VoiceResponseEx = require(path);
+  let twiml = new VoiceResponseEx();
+
   let digitArr = [];
   
   // https://cloud.google.com/speech-to-text/docs/class-tokens
@@ -33,20 +41,25 @@ exports.handler = function(context, event, callback) {
      }
   }
   
-  const enrol_code = digitArr.join(' ');
-  console.log('Enrol Code ' + enrol_code)
+  const enrol_code = digitArr.join('');
+  console.log('Enrol Code ' + enrol_code.split('').join(' '))
 
   const connector_uri = `wss://${context.CONNECTOR_SERVER}/record`
   
   // moved this to before start stream so the speech start is closer to <gather>
-  const say = twiml.say({
+
+  const sayEx = twiml.sayEx({
     voice: VOICE,
     language: LANG
   } ,'Please say ');
   
-  const pros = say.prosody({
+  const prosEx = sayEx.prosody({
      rate: '75%',
-  }, `${enrol_code}`);
+  }, '');
+
+  prosEx.sayAs({
+    'interpret-as': 'spell-out'
+  }, `${enrol_code}`)
   
   const start = twiml.start(); 
   const stream = start.stream({
