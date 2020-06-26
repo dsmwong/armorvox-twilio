@@ -1,4 +1,3 @@
-const https = require('https');
 const axios = require('axios');
 const debug = require('debug')('connector:armorvox');
 
