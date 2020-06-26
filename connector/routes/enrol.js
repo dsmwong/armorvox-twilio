@@ -3,6 +3,8 @@ const router = express.Router();
 const fs = require('fs');
 const debug = require('debug')('connector:routes:recresult');
 
+const ArmorVoxClient = require('../lib/armovox');
+
 const MEDIA_BASE = 'media/'
 
 function requestPrint(req) {
@@ -79,17 +81,62 @@ router.post('/', (req, res, next) => {
 
   debug(utterances);
 
-  let enrolment = []
-  enrolment.utterances = utterances;
-  enrolment.channel = 'voice'
-  enrolment.override = null;
+  let avClient = new ArmorVoxClient('https://armorvox.aurayasystems.com/evaluation/v8', 'twilio');
 
-  // POST /voiceprint/:id/:printName payload:enrolment
-
-  res.status(200).send({
-    status: 'ok',
-    message: 'received'
+  const cleanPhone = callMetadata[0].customParameters.caller.replace('+','');
+  avClient.enrol(cleanPhone, 'digit', utterances, 'voice', null).then( (resp) => {
+    debug(resp);
+    res.status(resp.status).send(resp.body);
+  }).catch((err) => {
+    debug(JSON.stringify(err, null, 2));
+    res.status(500).send( {
+      status: 'error',
+      error: err.message,
+      detail: err.stack,
+      url: err.config.url
+    });
   });
+
+  // avClient.detectGender(utterances, null).then( (resp) => {
+  //   debug(resp);
+  //   res.status(resp.status).send(resp.body);
+  // }).catch((err) => {
+  //   debug(JSON.stringify(err, null, 2));
+  //   res.status(500).send( {
+  //     status: 'error',
+  //     error: err.message,
+  //     detail: err.stack,
+  //     url: err.config.url
+  //   });
+  // });
+
+  
+  // avClient.checkHealth().then( (resp) => {
+  //   debug(resp);
+  //   res.status(200).send(resp.body);
+  // }).catch((err) => {
+  //   debug(JSON.stringify(err, null, 2));
+  //   res.status(500).send( {
+  //     status: 'error',
+  //     error: err.message,
+  //     detail: err.stack,
+  //     url: err.config.url
+  //   });
+  // });
+
+  // avClient.getPhrase('en_digit').then( (resp) => {
+  //   debug(resp);
+  //   res.status(200).send(resp.body);
+  // })
+  // .catch((err) => {
+  //   debug(JSON.stringify(err, null, 2));
+  //   res.status(500).send( {
+  //     status: 'error',
+  //     error: err.message,
+  //     detail: err.stack,
+  //     url: err.config.url
+  //   });
+  // });
 
 })
 
