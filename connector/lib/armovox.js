@@ -53,9 +53,7 @@ ArmorVoxClient.prototype.sendAndReceive = function (requestPath, method, body) {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    validateStatus: function (status) {
-      return true // return everything
-    }
+    validateStatus: null
   }
 
   // debug(`Making request ${JSON.stringify(config, null, 2)}`)
