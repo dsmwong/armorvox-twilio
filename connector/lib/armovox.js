@@ -54,7 +54,7 @@ ArmorVoxClient.prototype.sendAndReceive = function (requestPath, method, body) {
       'Content-Type': 'application/json'
     },
     validateStatus: function (status) {
-      return true
+      return true // return everything
     }
   }
 
