@@ -30,7 +30,8 @@ module.exports = function generateHeader(length, options) {
   var fmt  = Buffer.from('fmt ');
   var data = Buffer.from('data');
 
-  var MAX_WAV = 4294967295 - 100;
+  //var MAX_WAV = 4294967295 - 127;
+  var MAX_WAV = 19200000;
   var endianness = 'LE';
   var format = options.format || 1; // raw PCM = 1, ulaw = 7, alaw = 6, IEEE = 3
   var channels = options.channels || 1;

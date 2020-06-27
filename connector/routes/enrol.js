@@ -52,7 +52,7 @@ function digitsToPhrase(enrol_code) {
   const word_array = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   let phrase = [];
 
-  let split = enrol_code.split(' ');
+  let split = enrol_code.split('');
   split.forEach( digit => {
     phrase.push(word_array[parseInt(digit)])
   })
