@@ -22,10 +22,7 @@ exports.handler = function(context, event, callback) {
   // console.log('Context ' + JSON.stringify(context));
   // console.log('Event ' + JSON.stringify(event));
 
-  // This uses the VoiceResponseEx (private function) to work around a missing feature
-  let path = Runtime.getFunctions()['enrolment/VoiceResponseEx'].path;
-  let VoiceResponseEx = require(path);
-  let twiml = new VoiceResponseEx();
+  let twiml = new Twilio.twiml.VoiceResponse();
 
   let digitArr = [];
   
@@ -48,18 +45,19 @@ exports.handler = function(context, event, callback) {
   
   // moved this to before start stream so the speech start is closer to <gather>
 
-  const sayEx = twiml.sayEx({
+  const say = twiml.say({
     voice: VOICE,
     language: LANG
   } ,'Please say ');
   
-  const prosEx = sayEx.prosody({
+  const prosody = say.prosody({
      rate: '75%',
   }, '');
 
-  prosEx.sayAs({
+  const sayAs = prosody.addChild('say-as', {
     'interpret-as': 'spell-out'
-  }, `${enrol_code}`)
+  })
+  sayAs.addText(enrol_code);
   
   const start = twiml.start(); 
   const stream = start.stream({

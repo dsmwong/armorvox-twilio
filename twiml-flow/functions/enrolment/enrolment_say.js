@@ -11,8 +11,6 @@ exports.handler = function(context, event, callback) {
   // console.log('Event ' + JSON.stringify(event));
   
   let twiml = new Twilio.twiml.VoiceResponse();
-  const result = event.SpeechResult.split('').join(' ');
-  const confidence = event.Confidence;
   
   const return_url = `https://webhooks.twilio.com/v1/Accounts/${context.ACCOUNT_SID}/Flows/${context.FLOW_SID}?FlowEvent=return`
 
@@ -21,17 +19,24 @@ exports.handler = function(context, event, callback) {
       name: 'Enrolment Stream'
   })
   
-  console.log('Result ' + result + '(' + confidence + ')');
+  console.log('Result ' + event.SpeechResult + '(' + event.Confidence + ')');
+  
   const say = twiml.say({
     voice: VOICE,
     language: LANG
   } ,'You said, ');
   
-  say.prosody({
+  const prosody = say.prosody({
     rate: '65%'
-  }, result);
+  }, '');
+
+  const sayAs = prosody.addChild('say-as', {
+    'interpret-as': 'spell-out'
+  });
+
+  sayAs.addText(event.SpeechResult);
   
-  twiml.redirect(encodeURI(return_url +'&SpeechResult=' + result + '&Confidence=' + confidence))
+  twiml.redirect(encodeURI(return_url +'&SpeechResult=' + event.SpeechResult + '&Confidence=' + event.Confidence));
   
   callback(null, twiml)
 }
