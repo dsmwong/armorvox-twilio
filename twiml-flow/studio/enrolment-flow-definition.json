@@ -1,6 +1,8 @@
 {
-  "states": [{
-      "transitions": [{
+  "states": [
+    {
+      "transitions": [
+        {
           "event": "incomingMessage"
         },
         {
@@ -21,9 +23,11 @@
       }
     },
     {
-      "transitions": [{
-        "event": "audioComplete"
-      }],
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
       "type": "say-play",
       "name": "enrolment_complete",
       "properties": {
@@ -32,24 +36,28 @@
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 1370,
+          "y": 1640,
           "x": 110
         }
       }
     },
     {
-      "transitions": [{
-        "event": "next",
-        "next": "enrolment_function"
-      }],
+      "transitions": [
+        {
+          "event": "next",
+          "next": "enrolment_function"
+        }
+      ],
       "type": "set-variables",
       "name": "set_variables",
       "properties": {
-        "variables": [{
-          "index": "0",
-          "key": "count",
-          "value": "0"
-        }],
+        "variables": [
+          {
+            "index": "0",
+            "key": "count",
+            "value": "0"
+          }
+        ],
         "offset": {
           "y": 180,
           "x": 100
@@ -57,7 +65,8 @@
       }
     },
     {
-      "transitions": [{
+      "transitions": [
+        {
           "event": "return",
           "next": "submit_SpeechResult"
         },
@@ -80,18 +89,22 @@
       }
     },
     {
-      "transitions": [{
-        "event": "next",
-        "next": "check_count"
-      }],
+      "transitions": [
+        {
+          "event": "next",
+          "next": "check_count"
+        }
+      ],
       "type": "set-variables",
       "name": "increment_count",
       "properties": {
-        "variables": [{
-          "index": "0",
-          "key": "count",
-          "value": "{{flow.variables.count | plus: 1}}"
-        }],
+        "variables": [
+          {
+            "index": "0",
+            "key": "count",
+            "value": "{{flow.variables.count | plus: 1}}"
+          }
+        ],
         "offset": {
           "y": 880,
           "x": 100
@@ -99,19 +112,22 @@
       }
     },
     {
-      "transitions": [{
+      "transitions": [
+        {
           "event": "noMatch",
-          "next": "enrolment_complete"
+          "next": "submit_enrolment"
         },
         {
-          "conditions": [{
-            "type": "less_than",
-            "friendly_name": "If count < 4",
-            "arguments": [
-              "{{flow.variables.count}}"
-            ],
-            "value": "4"
-          }],
+          "conditions": [
+            {
+              "type": "less_than",
+              "friendly_name": "If count < 4",
+              "arguments": [
+                "{{flow.variables.count}}"
+              ],
+              "value": "4"
+            }
+          ],
           "event": "match",
           "next": "enrolment_function"
         }
@@ -127,7 +143,8 @@
       }
     },
     {
-      "transitions": [{
+      "transitions": [
+        {
           "event": "success",
           "next": "increment_count"
         },
@@ -139,7 +156,8 @@
       "name": "submit_SpeechResult",
       "properties": {
         "url": "https://dawong.au.ngrok.io/recresult",
-        "parameters": [{
+        "parameters": [
+          {
             "key": "SpeechResult",
             "value": "{{widgets.enrolment_function.SpeechResult}}"
           },
@@ -164,6 +182,34 @@
         "content_type": "application/x-www-form-urlencoded;charset=utf-8",
         "offset": {
           "y": 650,
+          "x": 100
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "success",
+          "next": "enrolment_complete"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "type": "make-http-request",
+      "name": "submit_enrolment",
+      "properties": {
+        "url": "https://dawong.au.ngrok.io/enrol",
+        "parameters": [
+          {
+            "key": "CallSid",
+            "value": "{{trigger.call.CallSid}}"
+          }
+        ],
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "offset": {
+          "y": 1380,
           "x": 100
         }
       }
