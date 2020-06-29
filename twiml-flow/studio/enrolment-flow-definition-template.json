@@ -80,7 +80,7 @@
       "type": "add-twiml-redirect",
       "name": "enrolment_function",
       "properties": {
-        "url": "https://twiml-flow-3105-dev.twil.io/enrolment/enrolment_gather?maxdigits=11&enrolType=Digits",
+        "url": "https://${twilio-functions-webhook-host}/enrolment/enrolment_gather?maxdigits=11&enrolType=Digits",
         "timeout": "14400",
         "offset": {
           "y": 420,
@@ -155,7 +155,7 @@
       "type": "make-http-request",
       "name": "submit_SpeechResult",
       "properties": {
-        "url": "https://dawong.au.ngrok.io/recresult",
+        "url": "https://${armorvox-twilio-connector-host}/recresult",
         "parameters": [
           {
             "key": "SpeechResult",
@@ -199,11 +199,15 @@
       "type": "make-http-request",
       "name": "submit_enrolment",
       "properties": {
-        "url": "https://dawong.au.ngrok.io/enrol",
+        "url": "https://${armorvox-twilio-connector-host}/enrol",
         "parameters": [
           {
             "key": "CallSid",
             "value": "{{trigger.call.CallSid}}"
+          },
+          {
+            "key": "AccessKey",
+            "value": "${armorvox-twilio-connector-accesskey}"
           }
         ],
         "method": "POST",
