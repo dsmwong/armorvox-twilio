@@ -5,6 +5,8 @@ const fs = require('fs');
 const debug = require('debug')('connector:routes:enrol');
 const util = require('util');
 
+require('dotenv').config();
+
 const ArmorVoxClient = require('../lib/armovox');
 
 const MEDIA_BASE = 'media/'
@@ -62,6 +64,10 @@ function digitsToPhrase(enrol_code) {
 
 router.post('/', (req, res, next) => {
 
+  if( req.body.AccessKey !== process.env.ACCESS_KEY) {
+    res.status(403).send({stataus: 'Unauthorized', message: 'Unauthorized Access'});
+  }
+
   requestPrint(req)
 
   let callMetadata = getCallMetadata(req.body.CallSid);
@@ -83,9 +89,15 @@ router.post('/', (req, res, next) => {
 
   debug(utterances);
 
-  let avClient = new ArmorVoxClient('https://armorvox.aurayasystems.com/evaluation/v8', 'twilio');
+  let avClient = new ArmorVoxClient(process.env.ARMORVOX_ENDPOINT, process.env.ARMORVOX_GROUP);
 
   const cleanPhone = callMetadata[0].customParameters.caller.replace('+','');
+
+  if( req.body.Stub ) {
+    res.status(200).send({status: 'ok', message: 'stub'});
+    return;
+  }
+
   avClient.enrol(cleanPhone, 'digit', utterances, 'voice', null).then( (resp) => {
     debug(util.inspect(resp, {depth: null}));
     res.status(resp.status).send(resp.body);
