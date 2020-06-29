@@ -1,5 +1,10 @@
 ## Set up
 
+### Twilio Studio Flow Definition
+The Flow Definition is stored under `studio/` directory. Please use [twilio studio api](https://www.twilio.com/docs/studio/rest-api/v2/flow) to upload definition
+
+Currently flow's connector endpoint is pointing to my localhost hosted connector. Please repoint this if you're using in your own environment. Replace `dawong.au.ngrok.io` with your server. This is your `CONNECTOR_SERVER`
+
 ### Environment Variables
 
 | Config Value | Description |
