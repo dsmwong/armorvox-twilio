@@ -73,6 +73,10 @@ exports.handler = function(context, event, callback) {
       name: 'caller',
       value: event.Caller
   });
+  stream.parameter({
+      name: 'mode',
+      value: 'enrol'
+  });
   
   const gather = twiml.gather({
     action: '/enrolment/enrolment_say',
