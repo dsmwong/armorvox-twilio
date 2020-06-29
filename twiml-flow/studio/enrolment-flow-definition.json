@@ -1,0 +1,177 @@
+{
+  "states": [{
+      "transitions": [{
+          "event": "incomingMessage"
+        },
+        {
+          "event": "incomingCall",
+          "next": "set_variables"
+        },
+        {
+          "event": "incomingRequest"
+        }
+      ],
+      "type": "trigger",
+      "name": "Trigger",
+      "properties": {
+        "offset": {
+          "y": 0,
+          "x": 0
+        }
+      }
+    },
+    {
+      "transitions": [{
+        "event": "audioComplete"
+      }],
+      "type": "say-play",
+      "name": "enrolment_complete",
+      "properties": {
+        "say": "Enrolment Complete",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1370,
+          "x": 110
+        }
+      }
+    },
+    {
+      "transitions": [{
+        "event": "next",
+        "next": "enrolment_function"
+      }],
+      "type": "set-variables",
+      "name": "set_variables",
+      "properties": {
+        "variables": [{
+          "index": "0",
+          "key": "count",
+          "value": "0"
+        }],
+        "offset": {
+          "y": 180,
+          "x": 100
+        }
+      }
+    },
+    {
+      "transitions": [{
+          "event": "return",
+          "next": "submit_SpeechResult"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "fail"
+        }
+      ],
+      "type": "add-twiml-redirect",
+      "name": "enrolment_function",
+      "properties": {
+        "url": "https://twiml-flow-3105-dev.twil.io/enrolment/enrolment_gather?maxdigits=11&enrolType=Digits",
+        "timeout": "14400",
+        "offset": {
+          "y": 420,
+          "x": 100
+        }
+      }
+    },
+    {
+      "transitions": [{
+        "event": "next",
+        "next": "check_count"
+      }],
+      "type": "set-variables",
+      "name": "increment_count",
+      "properties": {
+        "variables": [{
+          "index": "0",
+          "key": "count",
+          "value": "{{flow.variables.count | plus: 1}}"
+        }],
+        "offset": {
+          "y": 880,
+          "x": 100
+        }
+      }
+    },
+    {
+      "transitions": [{
+          "event": "noMatch",
+          "next": "enrolment_complete"
+        },
+        {
+          "conditions": [{
+            "type": "less_than",
+            "friendly_name": "If count < 4",
+            "arguments": [
+              "{{flow.variables.count}}"
+            ],
+            "value": "4"
+          }],
+          "event": "match",
+          "next": "enrolment_function"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "check_count",
+      "properties": {
+        "input": "{{flow.variables.count}}",
+        "offset": {
+          "y": 1110,
+          "x": 100
+        }
+      }
+    },
+    {
+      "transitions": [{
+          "event": "success",
+          "next": "increment_count"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "type": "make-http-request",
+      "name": "submit_SpeechResult",
+      "properties": {
+        "url": "https://dawong.au.ngrok.io/recresult",
+        "parameters": [{
+            "key": "SpeechResult",
+            "value": "{{widgets.enrolment_function.SpeechResult}}"
+          },
+          {
+            "key": "Confidence",
+            "value": "{{widgets.enrolment_function.Confidence}}"
+          },
+          {
+            "key": "Caller",
+            "value": "{{trigger.call.From}}"
+          },
+          {
+            "key": "CallSid",
+            "value": "{{trigger.call.CallSid}}"
+          },
+          {
+            "key": "Count",
+            "value": "{{flow.variables.count}}"
+          }
+        ],
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "offset": {
+          "y": 650,
+          "x": 100
+        }
+      }
+    }
+  ],
+  "initial_state": "Trigger",
+  "flags": {
+    "allow_concurrent_calls": true
+  },
+  "description": "A New Flow"
+}
