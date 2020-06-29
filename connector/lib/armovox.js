@@ -1,6 +1,7 @@
 "use strict";
 const axios = require('axios');
 const debug = require('debug')('connector:armorvox');
+const util = require('util');
 
 function ArmorVoxClient(server, group) {
   this.server = server

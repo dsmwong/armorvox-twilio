@@ -2,7 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const debug = require('debug')('connector:routes:recresult');
+const debug = require('debug')('connector:routes:enrol');
+const util = require('util');
 
 const ArmorVoxClient = require('../lib/armovox');
 
@@ -86,7 +87,7 @@ router.post('/', (req, res, next) => {
 
   const cleanPhone = callMetadata[0].customParameters.caller.replace('+','');
   avClient.enrol(cleanPhone, 'digit', utterances, 'voice', null).then( (resp) => {
-    debug(resp);
+    debug(util.inspect(resp, {depth: null}));
     res.status(resp.status).send(resp.body);
   }).catch((err) => {
     debug(JSON.stringify(err, null, 2));
