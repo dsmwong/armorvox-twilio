@@ -66,6 +66,7 @@ router.post('/', (req, res, next) => {
 
   if( req.body.AccessKey !== process.env.ACCESS_KEY) {
     res.status(403).send({stataus: 'Unauthorized', message: 'Unauthorized Access'});
+    return;
   }
 
   requestPrint(req)
