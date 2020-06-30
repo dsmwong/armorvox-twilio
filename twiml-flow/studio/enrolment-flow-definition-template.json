@@ -56,6 +56,19 @@
             "index": "0",
             "key": "count",
             "value": "0"
+          },
+          {
+            "index": "1",
+            "key": "digits",
+            "value": "11"
+          },
+          {
+            "key": "enrolType",
+            "value": "Digits"
+          },
+          {
+            "key": "connectorKey",
+            "value": "${armorvox-twilio-connector-accesskey}"
           }
         ],
         "offset": {
@@ -80,7 +93,8 @@
       "type": "add-twiml-redirect",
       "name": "enrolment_function",
       "properties": {
-        "url": "https://${twilio-functions-webhook-host}/enrolment/enrolment_gather?maxdigits=11&enrolType=Digits",
+        "url": "https://${twilio-functions-webhook-host}/enrolment/enrolment_gather?maxdigits={{flow.variables.digits}}&enrolType={{flow.variables.enrolType}}&question={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
+        "method": "POST",
         "timeout": "14400",
         "offset": {
           "y": 420,
@@ -207,7 +221,7 @@
           },
           {
             "key": "AccessKey",
-            "value": "${armorvox-twilio-connector-accesskey}"
+            "value": "{{flow.variables.connectorKey}}"
           }
         ],
         "method": "POST",

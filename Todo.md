@@ -6,7 +6,7 @@
   - [ ] "Please count backwards from nine to one"
   - [ ] "Please say <random 4 digits> <random 4 digits"
 
-- [ ] utternace.recognition = false
+- [X] utternace.recognition = false
 - [ ] checkQuality after each recognition, if quality is poor, add more questions. 
 - [ ] logic to avoid double digits and ensure a good spread of numbers
 - [ ] Verification using Phone Number or known numbers e.g. Credit Card Number / Account Number etc. 

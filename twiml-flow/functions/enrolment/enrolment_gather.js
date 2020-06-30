@@ -19,9 +19,10 @@ function getRandomInt(max) {
 exports.handler = function(context, event, callback) {
 
   console.log(`Entered ${context.PATH} node version ${process.version} twilio version ${twilio_version}`);
-  // console.log('Context ' + JSON.stringify(context));
-  // console.log('Event ' + JSON.stringify(event));
-
+  if( event.DEBUG ) {
+    console.log('Context ' + JSON.stringify(context));
+    console.log('Event ' + JSON.stringify(event));
+  }
   let twiml = new Twilio.twiml.VoiceResponse();
 
   let digitArr = [];
@@ -74,12 +75,16 @@ exports.handler = function(context, event, callback) {
       value: event.Caller
   });
   stream.parameter({
+      name: 'question',
+      value: event.question
+  });
+  stream.parameter({
       name: 'mode',
       value: 'enrol'
   });
   
   const gather = twiml.gather({
-    action: '/enrolment/enrolment_say',
+    action: `/enrolment/enrolment_say?FlowSid=${event.FlowSid}`,
     method: 'GET',
     input: 'speech',
     language: LANG,

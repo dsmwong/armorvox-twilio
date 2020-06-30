@@ -7,12 +7,14 @@ const VOICE = 'Polly.Russell'
 exports.handler = function(context, event, callback) {
 
   console.log(`Entered ${context.PATH} node version ${process.version} twilio version ${twilio_version}`);
-  // console.log('Context ' + JSON.stringify(context));
-  // console.log('Event ' + JSON.stringify(event));
-  
+
+  if( event.DEBUG ) {
+    console.log('Context ' + JSON.stringify(context));
+    console.log('Event ' + JSON.stringify(event));
+  }
   let twiml = new Twilio.twiml.VoiceResponse();
   
-  const return_url = `https://webhooks.twilio.com/v1/Accounts/${context.ACCOUNT_SID}/Flows/${context.FLOW_SID}?FlowEvent=return`
+  const return_url = `https://webhooks.twilio.com/v1/Accounts/${event.AccountSid}/Flows/${event.FlowSid}?FlowEvent=return`
 
   const stop = twiml.stop();
   stop.stream({
