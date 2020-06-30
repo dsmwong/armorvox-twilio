@@ -8,6 +8,33 @@ function ArmorVoxClient(server, group) {
   this.group = group
 }
 
+ArmorVoxClient.prototype.VoiceprintType = {
+  DIGIT: 'digit',
+  TPD: 'tpd',
+  TI: 'ti',
+  PHRASE: 'phrase',
+  DATE: 'date'
+}
+
+ArmorVoxClient.prototype.LearnType = {
+  ACTIVE: 'active',
+  ANTIMODEL: 'antimodel'
+}
+
+ArmorVoxClient.prototype.Status = {
+  GOOD: 'good',
+  FAILED: 'failed',
+  ERROR: 'error',
+  QAFAILED: 'qafailed',
+  ENROLLED: 'enrolled',
+  NOT_ENROLLED: 'not_enrolled'
+}
+
+ArmorVoxClient.prototype.QAMode = {
+  ENROL: 'enrol',
+  VERIFY: 'verify'
+}
+
 ArmorVoxClient.prototype.constructor = ArmorVoxClient
 
 ArmorVoxClient.prototype.enrol = function (id, printName, utterances, channel, overrides) {
@@ -20,6 +47,18 @@ ArmorVoxClient.prototype.enrol = function (id, printName, utterances, channel, o
 
   return this.sendAndReceive(`/voiceprint/${id}/${printName}`, 'POST', enrolment);
 }
+
+ArmorVoxClient.prototype.enhance = function (id, printName, learn, utterances, channel, overrides) {
+  debug(`enrol: id(${id}) printName(${printName}) channel(${channel})`);
+
+  let enhance = {};
+  enhance.utterances = utterances;
+  enhance.channel = channel;
+  enhance.override = overrides;
+
+  return this.sendAndReceive(`/voiceprint/${id}/${printName}?learn=${learn}`, 'POST', enhance);
+}
+
 
 ArmorVoxClient.prototype.verify = function (id, printName, utterance, channel, overrides) {
   debug(`verification: id(${id}) printName(${printName}) channel(${channel})`);
