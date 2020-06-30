@@ -65,7 +65,7 @@ function digitsToPhrase(enrol_code) {
 router.post('/', (req, res, next) => {
 
   if( req.body.AccessKey !== process.env.ACCESS_KEY) {
-    res.status(403).send({stataus: 'Unauthorized', message: 'Unauthorized Access'});
+    res.status(401).send({stataus: 'Unauthorized', message: 'Unauthorized Access'});
     return;
   }
 
@@ -73,6 +73,8 @@ router.post('/', (req, res, next) => {
 
   let callMetadata = getCallMetadata(req.body.CallSid);
   debug(callMetadata);
+
+  let avClient = new ArmorVoxClient(process.env.ARMORVOX_ENDPOINT, process.env.ARMORVOX_GROUP);
 
   let utterances = []
   callMetadata.forEach( (rec) => {
@@ -83,14 +85,12 @@ router.post('/', (req, res, next) => {
     utterance.vocab = 'en_digits';
     utterance.feature_vector = null;
     utterance.check_quality = true;
-    utterance.recognition = true;
+    utterance.recognition = false;
 
     utterances.push(utterance)
   });
 
   debug(utterances);
-
-  let avClient = new ArmorVoxClient(process.env.ARMORVOX_ENDPOINT, process.env.ARMORVOX_GROUP);
 
   const cleanPhone = callMetadata[0].customParameters.caller.replace('+','');
 
@@ -98,8 +98,8 @@ router.post('/', (req, res, next) => {
     res.status(200).send({status: 'ok', message: 'stub'});
     return;
   }
-
-  avClient.enrol(cleanPhone, 'digit', utterances, 'voice', null).then( (resp) => {
+  
+  avClient.enrol(cleanPhone, avClient.VoiceprintType.DIGIT, utterances, 'voice', null).then( (resp) => {
     debug(util.inspect(resp, {depth: null}));
     res.status(resp.status).send(resp.body);
   }).catch((err) => {
@@ -111,47 +111,6 @@ router.post('/', (req, res, next) => {
       url: err.config.url
     });
   });
-
-  // avClient.detectGender(utterances, null).then( (resp) => {
-  //   debug(resp);
-  //   res.status(resp.status).send(resp.body);
-  // }).catch((err) => {
-  //   debug(JSON.stringify(err, null, 2));
-  //   res.status(500).send( {
-  //     status: 'error',
-  //     error: err.message,
-  //     detail: err.stack,
-  //     url: err.config.url
-  //   });
-  // });
-
-  
-  // avClient.checkHealth().then( (resp) => {
-  //   debug(resp);
-  //   res.status(200).send(resp.body);
-  // }).catch((err) => {
-  //   debug(JSON.stringify(err, null, 2));
-  //   res.status(500).send( {
-  //     status: 'error',
-  //     error: err.message,
-  //     detail: err.stack,
-  //     url: err.config.url
-  //   });
-  // });
-
-  // avClient.getPhrase('en_digit').then( (resp) => {
-  //   debug(resp);
-  //   res.status(200).send(resp.body);
-  // })
-  // .catch((err) => {
-  //   debug(JSON.stringify(err, null, 2));
-  //   res.status(500).send( {
-  //     status: 'error',
-  //     error: err.message,
-  //     detail: err.stack,
-  //     url: err.config.url
-  //   });
-  // });
 
 })
 
