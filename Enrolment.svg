@@ -1,0 +1,215 @@
+<svg width="1343.5" height="1378.0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<!-- Generator: Sequence Diagram - v1.7.11-(183) - http://www.macsequencediagram.com -->
+
+<rect x="0.0" y="0.0" width="1343.5" height="1378.0" style="fill:#ECECEC;fill-opacity:1.0;"/>
+<g id="Participant box" class="ParticipantBoxView">
+	<rect x="465.5" y="105.0" width="571.0" height="1223.0" style="fill:#000000;fill-opacity:0.0;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+	<text x="751.0" y="117.0" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="12.0" font-weight="700" style="fill:#000000;fill-opacity:1.0;">Armovox-Twilio</text>
+</g>
+<g id="Diagram Title" class="TitleView">
+	<text x="671.75" y="35.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="17.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">ArmorVox Twilio (Enrol)</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="60.0" y="135.0" width="116.0" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="118.0" y="165.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Caller</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="215.0" y="135.0" width="114.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="272.25" y="165.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Twilio</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="475.5" y="135.0" width="141.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="546.25" y="165.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">TWStudio</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="706.0" y="135.0" width="154.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="783.25" y="165.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">TWFunction</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="880.5" y="135.0" width="146.0" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="953.5" y="165.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Connector</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="1143.0" y="135.0" width="140.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="1213.25" y="165.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Armorvox</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="60.0" y="1257.0" width="116.0" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="118.0" y="1287.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Caller</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="215.0" y="1257.0" width="114.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="272.25" y="1287.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Twilio</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="475.5" y="1257.0" width="141.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="546.25" y="1287.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">TWStudio</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="706.0" y="1257.0" width="154.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="783.25" y="1287.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">TWFunction</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="880.5" y="1257.0" width="146.0" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="953.5" y="1287.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Connector</text>
+</g>
+<g id="Participant" class="ParticipantView">
+	<rect x="1143.0" y="1257.0" width="140.5" height="61.0" rx="5.0" ry="5.0" style="fill:#D8D8D8;stroke:#979797;stroke-width:1.0;"/>
+	<text x="1213.25" y="1287.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">Armorvox</text>
+</g>
+<g id="Lifeline" class="LifelineView">
+	<line x1="117.0" y1="196.0" x2="119.0" y2="1257.0" style="fill:none;stroke:#636363;stroke-opacity:1.0;stroke-width:1.0;" stroke-dasharray="20.0, 10.0"/>
+</g>
+<g id="Lifeline" class="LifelineView">
+	<line x1="271.0" y1="196.0" x2="273.0" y2="1257.0" style="fill:none;stroke:#636363;stroke-opacity:1.0;stroke-width:1.0;" stroke-dasharray="20.0, 10.0"/>
+</g>
+<g id="Lifeline" class="LifelineView">
+	<line x1="545.0" y1="196.0" x2="547.0" y2="1257.0" style="fill:none;stroke:#636363;stroke-opacity:1.0;stroke-width:1.0;" stroke-dasharray="20.0, 10.0"/>
+</g>
+<g id="Lifeline" class="LifelineView">
+	<line x1="782.0" y1="196.0" x2="784.0" y2="1257.0" style="fill:none;stroke:#636363;stroke-opacity:1.0;stroke-width:1.0;" stroke-dasharray="20.0, 10.0"/>
+</g>
+<g id="Lifeline" class="LifelineView">
+	<line x1="952.5" y1="196.0" x2="954.5" y2="1257.0" style="fill:none;stroke:#636363;stroke-opacity:1.0;stroke-width:1.0;" stroke-dasharray="20.0, 10.0"/>
+</g>
+<g id="Lifeline" class="LifelineView">
+	<line x1="1212.5" y1="196.0" x2="1214.5" y2="1257.0" style="fill:none;stroke:#636363;stroke-opacity:1.0;stroke-width:1.0;" stroke-dasharray="20.0, 10.0"/>
+</g>
+<g id="Interaction Frame -     loop    " class="InteractionFrameView">
+	<rect x="63.0" y="341.0" width="945.5" height="564.0" style="fill:#FFFF00;fill-opacity:0.05;"/>
+	<path d="M 63.0,341.0 L 118.0,341.0 L 118.0,349.0 L 112.0,357.0 L 63.0,357.0" style="fill:#FFFFFF;fill-opacity:1.0;stroke:#BEBEB6;stroke-opacity:1.0;stroke-width:1.0;"/>
+	<rect x="63.0" y="341.0" width="945.5" height="564.0" style="fill:none;stroke:#000000;stroke-opacity:1.0;stroke-width:1.0;"/>
+	<text x="90.5" y="349.0" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="12.0" font-weight="700" style="fill:#000000;fill-opacity:1.0;">    loop    </text>
+	<text x="138.0" y="349.0" text-anchor="start" alignment-baseline="middle" font-family="Helvetica" font-size="12.0" font-weight="700" style="fill:#000000;fill-opacity:1.0;">while (n &lt; 4)</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="195.0" y="254.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">${ANI}</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="409.0" y="299.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">Voice Trigger</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="409.0" y="389.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">&lt;redirect&gt;/enrolment_gather&lt;/redirect&gt;</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="527.5" y="434.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">/enrolment_gather</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="527.5" y="479.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">&lt;stream&gt;wss://connector/record&lt;/stream&gt; &lt;gather&gt;${randomdigits}&lt;/gather&gt;</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="195.0" y="524.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">say ${randomdigits}</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="612.75" y="569.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">wss://connector/record?${CallSid}</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="527.5" y="688.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">SpeechResult</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="527.5" y="733.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">&lt;say&gt;${SpeechResult}&lt;/say&gt; &lt;redirect&gt;Studio&lt;/redirect&gt;</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="409.0" y="778.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">continue</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="409.0" y="823.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">HTTP Request (Submit SpeechResult)</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="612.75" y="868.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">https://connector/recresult?${SpeechResult}&amp;${CallSid}</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="749.75" y="996.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">https://connector/enrol?${CallSid}</text>
+</g>
+<g id="Signal" class="SignalMessageView">
+	<text x="1083.5" y="1115.5" text-anchor="middle" alignment-baseline="middle" font-family="Helvetica" font-size="13.0" font-weight="400" style="fill:#000000;fill-opacity:1.0;">https://arorvox/voiceprint/${ANI}/digit</text>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 262.0,266.0 L 272.0,271.5 L 262.0,276.0 L 262.0, 266.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="118.0" y1="271.5" x2="262.0" y2="271.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 536.0,311.0 L 546.0,316.5 L 536.0,321.0 L 536.0, 311.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="272.0" y1="316.5" x2="536.0" y2="316.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 282.0,401.0 L 272.0,406.5 L 282.0,411.0 L 282.0, 401.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="282.0" y1="406.5" x2="546.0" y2="406.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 773.0,446.0 L 783.0,451.5 L 773.0,456.0 L 773.0, 446.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="272.0" y1="451.5" x2="773.0" y2="451.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 282.0,491.0 L 272.0,496.5 L 282.0,501.0 L 282.0, 491.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="282.0" y1="496.5" x2="783.0" y2="496.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 262.0,536.0 L 272.0,541.5 L 262.0,546.0 L 262.0, 536.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="118.0" y1="541.5" x2="262.0" y2="541.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 943.5,581.0 L 953.5,586.5 L 943.5,591.0 L 943.5, 581.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="272.0" y1="586.5" x2="943.5" y2="586.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 773.0,700.0 L 783.0,705.5 L 773.0,710.0 L 773.0, 700.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="272.0" y1="705.5" x2="773.0" y2="705.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 282.0,745.0 L 272.0,750.5 L 282.0,755.0 L 282.0, 745.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="282.0" y1="750.5" x2="783.0" y2="750.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 536.0,790.0 L 546.0,795.5 L 536.0,800.0 L 536.0, 790.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="272.0" y1="795.5" x2="536.0" y2="795.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 282.0,835.0 L 272.0,840.5 L 282.0,845.0 L 282.0, 835.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="282.0" y1="840.5" x2="546.0" y2="840.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 943.5,880.0 L 953.5,885.5 L 943.5,890.0 L 943.5, 880.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="272.0" y1="885.5" x2="943.5" y2="885.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 943.5,1008.0 L 953.5,1013.5 L 943.5,1018.0 L 943.5, 1008.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="546.0" y1="1013.5" x2="943.5" y2="1013.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Signal line" class="SignalLineView">
+	<path d="M 1203.5,1127.0 L 1213.5,1132.5 L 1203.5,1137.0 L 1203.5, 1127.0" style="fill:#000000;fill-opacity:1.0;"/>
+	
+	<line x1="953.5" y1="1132.5" x2="1203.5" y2="1132.5" style="fill:none;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+</g>
+<g id="Note" class="NoteView">
+	<rect x="963.5" y="596.0" width="284.0" height="54.0" rx="5.0" ry="5.0" style="fill:#FFCDAA;fill-opacity:1.0;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+	<text x="977.5" y="614.5" text-anchor="start" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">write${CallSid}_[n].json </text>
+	<text x="977.5" y="631.5" text-anchor="start" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">write${CallSid}_[n].wav (ulaw, 16bit, 8kHz)</text>
+</g>
+<g id="Note" class="NoteView">
+	<rect x="963.5" y="925.0" width="265.5" height="33.0" rx="5.0" ry="5.0" style="fill:#FFCDAA;fill-opacity:1.0;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+	<text x="977.5" y="941.5" text-anchor="start" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">writeSpeechResultto${CallSid}_[n].json</text>
+</g>
+<g id="Note" class="NoteView">
+	<rect x="963.5" y="1023.0" width="212.0" height="54.0" rx="5.0" ry="5.0" style="fill:#FFCDAA;fill-opacity:1.0;stroke:#979797;stroke-opacity:1.0;stroke-width:1.0;"/>
+	<text x="977.5" y="1041.5" text-anchor="start" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">readfrom${CallSid}_[0-3].json </text>
+	<text x="977.5" y="1058.5" text-anchor="start" alignment-baseline="middle" font-family="Helvetica Neue" font-size="14.0" font-weight="300" style="fill:#000000;fill-opacity:1.0;">prepare${enrol_payload}</text>
+</g>
+
+<!-- Generator: Sequence Diagram - v1.7.11-(183) - http://www.macsequencediagram.com -->
+
+</svg>

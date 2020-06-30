@@ -8,4 +8,4 @@ TwiML flow contains the flow logic, part hosted in Twilio Functions, part hosted
 
 ## Flow
 
-![websequence diagram](https://www.websequencediagrams.com/files/render?link=zGmDIqL6s1bXf7ttLIeiCqxTxTN1db7wYdmVcQOFb0nMOYeCHafDOLpkE0YMlc06)
+![digram](./Enrolment.svg)
