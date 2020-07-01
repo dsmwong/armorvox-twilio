@@ -32,7 +32,6 @@ The following Enrolment Type will take into account `maxdigits`, `NoRepeat`, `No
 | :--| :-- |
 | ACCOUNT_SID   | Your primary Twilio account identifier - find this [in the Console](https://www.twilio.com/console)|
 | AUTH_TOKEN    | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console)|
-| FLOW_SID | SID of the Studio Enrolment Flow|
 | CONNECTOR_SERVER    | Server hosting the armorvox connector e.g. armovox.ngrok.io |
 
 ## TO-DO / Considerations
