@@ -1,6 +1,5 @@
 const twilio_version = require('twilio/package.json').version;
 
-//const RETURN_WEBHOOK = 'https://webhooks.twilio.com/v1/Accounts/AC72c69ce8a6745ba82d93ba0b2c94cbfa/Flows/FW26c0e6ad9d690eef1c7a69f2d116663c?FlowEvent=return'
 const LANG = 'en-AU'
 const VOICE = 'Polly.Russell'
 
