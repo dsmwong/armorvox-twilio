@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const debug = require('debug')('connector:routes:checkquality');
+const debug = require('debug')('connector:routes:verify');
 const util = require('util');
 
 require('dotenv').config();
