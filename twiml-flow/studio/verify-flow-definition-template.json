@@ -202,7 +202,8 @@
     {
       "transitions": [
         {
-          "event": "noMatch"
+          "event": "noMatch",
+          "next": "likely_imposter"
         },
         {
           "conditions": [
@@ -226,6 +227,25 @@
         "offset": {
           "y": 1280,
           "x": 80
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "likely_imposter",
+      "properties": {
+        "say": "Sorry, I can't verify you. Your score was {{widgets.submit_verification.parsed.score}} . Likely imposter probability of {{widgets.submit_verification.parsed.impostor_prob}} percent.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1640,
+          "x": -270
         }
       }
     }
