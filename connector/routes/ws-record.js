@@ -78,8 +78,8 @@ class MediaStreamHandler {
 
       this.metaData = data.start;
 
-      let i = this.metaData.sequence;
-      let mode = (this.metaData.mode === 'enrol') ? 'e' : 'v';
+      let i = this.metaData.customParameters.sequence;
+      let mode = (this.metaData.customParameters.mode === 'enrol') ? 'e' : 'v';
 
       // try {
       //   while (fs.existsSync(`media/${this.metaData.callSid}-${i}.json`)) {

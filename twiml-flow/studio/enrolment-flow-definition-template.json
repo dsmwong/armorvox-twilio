@@ -60,7 +60,7 @@
           {
             "index": "1",
             "key": "digits",
-            "value": "11"
+            "value": "6"
           },
           {
             "key": "enrolType",
@@ -69,6 +69,10 @@
           {
             "key": "connectorKey",
             "value": "${armorvox-twilio-connector-accesskey}"
+          },
+          {
+            "key": "connector_server",
+            "value": "${armorvox-twilio-connector-host}"
           }
         ],
         "offset": {
@@ -93,7 +97,7 @@
       "type": "add-twiml-redirect",
       "name": "enrolment_function",
       "properties": {
-        "url": "https://${twilio-functions-webhook-host}/enrolment/enrolment_gather?maxdigits={{flow.variables.digits}}&enrolType={{flow.variables.enrolType}}&question={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
+        "url": "https:///${twilio-functions-webhook-host}/enrolment/enrolment_gather?Count={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
         "method": "POST",
         "timeout": "14400",
         "offset": {
@@ -169,7 +173,7 @@
       "type": "make-http-request",
       "name": "submit_SpeechResult",
       "properties": {
-        "url": "https://${armorvox-twilio-connector-host}/recresult",
+        "url": "https://{{flow.variables.connector_server}}/recresult",
         "parameters": [
           {
             "key": "SpeechResult",
@@ -190,6 +194,10 @@
           {
             "key": "Count",
             "value": "{{flow.variables.count}}"
+          },
+          {
+            "key": "mode",
+            "value": "enrol"
           }
         ],
         "method": "POST",
@@ -213,7 +221,7 @@
       "type": "make-http-request",
       "name": "submit_enrolment",
       "properties": {
-        "url": "https://${armorvox-twilio-connector-host}/enrol",
+        "url": "https://{{flow.variables.connector_server}}/enrol",
         "parameters": [
           {
             "key": "CallSid",

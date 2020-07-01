@@ -35,13 +35,14 @@ router.post('/', (req, res, next)=>{
   requestPrint(req);
 
   let i = 0;
+  let mode = (req.body.mode === 'enrol') ? 'e' : 'v';
 
   try {
     // while (fs.existsSync(`media/${recObj.callSid}-${i}.txt`)) {
     //   i++;
     // }
 
-    const metafile = `media/${req.body.CallSid}-${req.body.Count}.json`
+    const metafile = `media/${req.body.CallSid}-${req.body.Count}-${mode}.json`
     if( fs.existsSync(metafile)) {
       debug(`found ${metafile}`)
       let data = JSON.parse(fs.readFileSync(metafile));
