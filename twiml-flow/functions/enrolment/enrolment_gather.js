@@ -159,7 +159,9 @@ exports.handler = function(context, event, callback) {
   });
   
   twiml.say('We didn\'t receive any input. Goodbye!');
-  console.log(twiml.toString());
+  if( event.DEBUG ) {
+    console.log(twiml.toString());
+  }
  
   callback(null, twiml)
 };
