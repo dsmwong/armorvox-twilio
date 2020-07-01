@@ -68,11 +68,15 @@
           },
           {
             "key": "connectorKey",
-            "value": "${armorvox-twilio-connector-accesskey}"
+            "value": "${armorvox-twilio-connector-accesskey"
           },
           {
             "key": "connector_server",
             "value": "${armorvox-twilio-connector-host}"
+          },
+          {
+            "key": "functions_host",
+            "value": "${twilio-functions-webhook-host}"
           }
         ],
         "offset": {
@@ -97,7 +101,7 @@
       "type": "add-twiml-redirect",
       "name": "enrolment_function",
       "properties": {
-        "url": "https:///${twilio-functions-webhook-host}/enrolment/enrolment_gather?Count={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
+        "url": "https://{{flow.variables.functions_host}}/enrolment/enrolment_gather?Count={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
         "method": "POST",
         "timeout": "14400",
         "offset": {
