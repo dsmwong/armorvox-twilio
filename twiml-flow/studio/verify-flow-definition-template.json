@@ -29,15 +29,15 @@
         }
       ],
       "type": "say-play",
-      "name": "enrolment_complete",
+      "name": "verification_complete",
       "properties": {
-        "say": "Enrolment Complete",
+        "say": "You have been verified with score {{widgets.submit_verification.parsed.score}}",
         "voice": "Polly.Russell",
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 1640,
-          "x": 110
+          "y": 1610,
+          "x": 290
         }
       }
     },
@@ -45,7 +45,7 @@
       "transitions": [
         {
           "event": "next",
-          "next": "enrolment_function"
+          "next": "verify_function"
         }
       ],
       "type": "set-variables",
@@ -71,12 +71,17 @@
             "value": "${armorvox-twilio-connector-accesskey}"
           },
           {
-            "key": "connector_server",
+            "index": "4",
+            "key": "connector_server_local",
             "value": "${armorvox-twilio-connector-host}"
           },
           {
             "key": "functions_host",
             "value": "${twilio-functions-webhook-host}"
+          },
+          {
+            "key": "connector_server",
+            "value": "${armorvox-twilio-connector-host}"
           }
         ],
         "offset": {
@@ -99,9 +104,9 @@
         }
       ],
       "type": "add-twiml-redirect",
-      "name": "enrolment_function",
+      "name": "verify_function",
       "properties": {
-        "url": "https://{{flow.variables.functions_host}}/enrolment/enrolment_gather?Count={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
+        "url": "https://{{flow.variables.functions_host}}/verify/verify_gather?Attempt={{flow.variables.count}}&FlowSid={{flow.flow_sid}}",
         "method": "POST",
         "timeout": "14400",
         "offset": {
@@ -113,62 +118,8 @@
     {
       "transitions": [
         {
-          "event": "next",
-          "next": "check_count"
-        }
-      ],
-      "type": "set-variables",
-      "name": "increment_count",
-      "properties": {
-        "variables": [
-          {
-            "index": "0",
-            "key": "count",
-            "value": "{{flow.variables.count | plus: 1}}"
-          }
-        ],
-        "offset": {
-          "y": 880,
-          "x": 100
-        }
-      }
-    },
-    {
-      "transitions": [
-        {
-          "event": "noMatch",
-          "next": "submit_enrolment"
-        },
-        {
-          "conditions": [
-            {
-              "type": "less_than",
-              "friendly_name": "If count < 4",
-              "arguments": [
-                "{{flow.variables.count}}"
-              ],
-              "value": "4"
-            }
-          ],
-          "event": "match",
-          "next": "enrolment_function"
-        }
-      ],
-      "type": "split-based-on",
-      "name": "check_count",
-      "properties": {
-        "input": "{{flow.variables.count}}",
-        "offset": {
-          "y": 1110,
-          "x": 100
-        }
-      }
-    },
-    {
-      "transitions": [
-        {
           "event": "success",
-          "next": "increment_count"
+          "next": "submit_verification"
         },
         {
           "event": "failed"
@@ -181,11 +132,11 @@
         "parameters": [
           {
             "key": "SpeechResult",
-            "value": "{{widgets.enrolment_function.SpeechResult}}"
+            "value": "{{widgets.verify_function.SpeechResult}}"
           },
           {
             "key": "Confidence",
-            "value": "{{widgets.enrolment_function.Confidence}}"
+            "value": "{{widgets.verify_function.Confidence}}"
           },
           {
             "key": "Caller",
@@ -201,7 +152,7 @@
           },
           {
             "key": "mode",
-            "value": "enrol"
+            "value": "verify"
           }
         ],
         "method": "POST",
@@ -216,16 +167,16 @@
       "transitions": [
         {
           "event": "success",
-          "next": "enrolment_complete"
+          "next": "is_verified"
         },
         {
           "event": "failed"
         }
       ],
       "type": "make-http-request",
-      "name": "submit_enrolment",
+      "name": "submit_verification",
       "properties": {
-        "url": "https://{{flow.variables.connector_server}}/enrol",
+        "url": "https://{{flow.variables.connector_server}}/verify",
         "parameters": [
           {
             "key": "CallSid",
@@ -234,13 +185,47 @@
           {
             "key": "AccessKey",
             "value": "{{flow.variables.connectorKey}}"
+          },
+          {
+            "key": "Attempt",
+            "value": "{{flow.variables.count}}"
           }
         ],
         "method": "POST",
         "content_type": "application/x-www-form-urlencoded;charset=utf-8",
         "offset": {
-          "y": 1380,
+          "y": 970,
           "x": 100
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch"
+        },
+        {
+          "conditions": [
+            {
+              "type": "equal_to",
+              "friendly_name": "If value equal_to good",
+              "arguments": [
+                "{{widgets.submit_verification.parsed.status}}"
+              ],
+              "value": "good"
+            }
+          ],
+          "event": "match",
+          "next": "verification_complete"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "is_verified",
+      "properties": {
+        "input": "{{widgets.submit_verification.parsed.status}}",
+        "offset": {
+          "y": 1280,
+          "x": 80
         }
       }
     }
@@ -249,5 +234,5 @@
   "flags": {
     "allow_concurrent_calls": true
   },
-  "description": "A New Flow"
+  "description": "VerifyFlow"
 }
