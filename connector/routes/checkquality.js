@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const debug = require('debug')('connector:routes:enrol');
+const debug = require('debug')('connector:routes:checkquality');
 const util = require('util');
 
 require('dotenv').config();
@@ -37,20 +37,6 @@ function requestPrint(req) {
   debug('---------------------------------------------------------------------');
 }
 
-function getCallMetadata(callsid) {
-  
-  let file_array = fs.readdirSync(MEDIA_BASE).filter(file => file.match(new RegExp(`${callsid}-.*-e\.json`, 'ig')));
-  let jsonArray = []
-
-  debug('Files Found: ', file_array)
-  
-  file_array.forEach( (file) => {
-    jsonArray.push(JSON.parse(fs.readFileSync(`${MEDIA_BASE}${file}`)));
-  });
-
-  return jsonArray;
-}
-
 function digitsToPhrase(enrol_code) {
   const word_array = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   let phrase = [];
@@ -69,37 +55,31 @@ router.post('/', (req, res, next) => {
     return;
   }
 
-  requestPrint(req)
+  requestPrint(req);
 
-  let callMetadata = getCallMetadata(req.body.CallSid);
+  let mode = (req.body.mode === 'enrol') ? 'e' : 'v'
+  let callMetadata = JSON.parse(fs.readFileSync(`${MEDIA_BASE}${req.body.CallSid}-${req.body.Count}-${mode}.json`))
   debug(callMetadata);
 
   let avClient = new ArmorVoxClient(process.env.ARMORVOX_ENDPOINT, process.env.ARMORVOX_GROUP);
 
-  let utterances = []
-  callMetadata.forEach( (rec) => {
-    let utterance = {}
+  let utterance = {}
 
-    utterance.content = fs.readFileSync(MEDIA_BASE + rec.wavfile, {encoding: 'base64'});
-    utterance.phrase = digitsToPhrase(rec.customParameters.enrolCode);
-    utterance.vocab = 'en_digits';
-    utterance.feature_vector = null;
-    utterance.check_quality = true;
-    utterance.recognition = false;
+  utterance.content = fs.readFileSync(MEDIA_BASE + callMetadata.wavfile, {encoding: 'base64'});
+  utterance.phrase = digitsToPhrase(callMetadata.customParameters.enrolCode);
+  utterance.vocab = 'en_digits';
+  utterance.feature_vector = null;
+  utterance.check_quality = true;
+  utterance.recognition = false;
 
-    utterances.push(utterance)
-  });
-
-  debug(utterances);
-
-  const cleanPhone = callMetadata[0].customParameters.caller.replace('+','');
+  debug(utterance);
 
   if( req.body.Stub ) {
     res.status(200).send({status: 'ok', message: 'stub'});
     return;
   }
   
-  avClient.enrol(cleanPhone, avClient.VoiceprintType.DIGIT, utterances, process.env.ARMORVOX_CHANNEL, null).then( (resp) => {
+  avClient.checkQuality(avClient.VoiceprintType.DIGIT, utterance, req.body.mode, null).then( (resp) => {
     debug(util.inspect(resp, {depth: null}));
     res.status(resp.status).send(resp.body);
   }).catch((err) => {

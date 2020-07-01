@@ -78,25 +78,26 @@ class MediaStreamHandler {
 
       this.metaData = data.start;
 
-      let i = 0;
+      let i = this.metaData.sequence;
+      let mode = (this.metaData.mode === 'enrol') ? 'e' : 'v';
 
-      try {
-        while (fs.existsSync(`media/${this.metaData.callSid}-${i}.json`)) {
-          i++;
-        }
-      } catch (e) {
-        console.log('something went wrong', e)
-      }
+      // try {
+      //   while (fs.existsSync(`media/${this.metaData.callSid}-${i}.json`)) {
+      //     i++;
+      //   }
+      // } catch (e) {
+      //   console.log('something went wrong', e)
+      // }
 
-      this.metaData.wavfile = `${this.metaData.callSid}-${i}.wav`
+      this.metaData.wavfile = `${this.metaData.callSid}-${i}-${mode}.wav`
 
       // write meta data
-      fs.writeFile(`media/${this.metaData.callSid}-${i}.json`, JSON.stringify(this.metaData, null, 2), (err) => {
+      fs.writeFile(`media/${this.metaData.callSid}-${i}-${mode}.json`, JSON.stringify(this.metaData, null, 2), (err) => {
         if (err) console.log(err);
       });
 
       // for Saving to wav file
-      this.writeStream = fs.createWriteStream(`media/${this.metaData.callSid}-${i}.wav`, {
+      this.writeStream = fs.createWriteStream(`media/${this.metaData.wavfile}`, {
         encoding: 'base64',
         flags: 'w'
       });

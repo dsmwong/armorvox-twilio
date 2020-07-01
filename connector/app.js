@@ -11,7 +11,9 @@ const usersRouter = require('./routes/users');
 const recordRouter = require('./routes/ws-record');
 const recresultRouter = require('./routes/recresult');
 
-const enrolRouter = require('./routes/enrol')
+const enrolRouter = require('./routes/enrol');
+const verifyRouter = require('./routes/verify');
+const checkQualityRouter = require('./routes/checkquality');
 
 const app = express();
 
@@ -27,7 +29,9 @@ app.use('/users', usersRouter);
 app.use('/record', recordRouter);
 app.use('/recresult', recresultRouter);
 
-app.use('/enrol', enrolRouter); 
+app.use('/enrol', enrolRouter);
+app.use('/verify', verifyRouter); 
+app.use('/checkquality', checkQualityRouter); 
 
 // Specific route handling for setting up websocket connection
 app.handleUpgrade = function(pathname, request, socket, head) {
