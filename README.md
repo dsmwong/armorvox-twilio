@@ -6,6 +6,10 @@ Connector server side for integrating Twilio with Armovox. This is a NodeJS appl
 ## TwiML Flow
 TwiML flow contains the flow logic, part hosted in Twilio Functions, part hosted in Studio. The intention is to have it all in Functions and all in one place. It's just easier to add flow widgets in Studio. 
 
-## Flow
+## Sequence Diagram
 
 ![digram](./Enrolment.svg)
+
+## Flow Diagram
+
+![digram](./Flows.svg)
