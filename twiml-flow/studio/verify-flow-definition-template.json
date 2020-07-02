@@ -7,7 +7,7 @@
         },
         {
           "event": "incomingCall",
-          "next": "set_variables"
+          "next": "get_config"
         },
         {
           "event": "incomingRequest"
@@ -17,8 +17,8 @@
       "name": "Trigger",
       "properties": {
         "offset": {
-          "y": 0,
-          "x": 0
+          "y": -410,
+          "x": 40
         }
       }
     },
@@ -67,25 +67,23 @@
             "value": "Digits"
           },
           {
+            "index": "3",
             "key": "connectorKey",
-            "value": "${armorvox-twilio-connector-accesskey}"
+            "value": "{{widgets.get_config.parsed.connector_key}}"
           },
           {
-            "index": "4",
-            "key": "connector_server_local",
-            "value": "${armorvox-twilio-connector-host}"
-          },
-          {
+            "index": "5",
             "key": "functions_host",
-            "value": "${twilio-functions-webhook-host}"
+            "value": "{{widgets.get_config.parsed.functions_host}}"
           },
           {
+            "index": "6",
             "key": "connector_server",
-            "value": "${armorvox-twilio-connector-host}"
+            "value": "{{widgets.get_config.parsed.connector_server}}"
           }
         ],
         "offset": {
-          "y": 180,
+          "y": 100,
           "x": 100
         }
       }
@@ -413,6 +411,29 @@
         "offset": {
           "y": 950,
           "x": 840
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "success",
+          "next": "set_variables"
+        },
+        {
+          "event": "fail"
+        }
+      ],
+      "type": "run-function",
+      "name": "get_config",
+      "properties": {
+        "url": "https://twiml-flow-3105-dev.twil.io/getConfig",
+        "function_sid": "ZHb981996bc0e8517e8f4ad72370c2f0f9",
+        "service_sid": "ZSc8e85bd2d65af5061e8817f73a7bb575",
+        "environment_sid": "ZE86955aab4ab97636352260466695ea43",
+        "offset": {
+          "y": -140,
+          "x": 110
         }
       }
     }

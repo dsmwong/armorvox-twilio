@@ -7,7 +7,7 @@
         },
         {
           "event": "incomingCall",
-          "next": "set_variables"
+          "next": "get_config"
         },
         {
           "event": "incomingRequest"
@@ -17,8 +17,8 @@
       "name": "Trigger",
       "properties": {
         "offset": {
-          "y": -230,
-          "x": -800
+          "y": -590,
+          "x": -720
         }
       }
     },
@@ -67,21 +67,19 @@
             "value": "Digits"
           },
           {
+            "index": "3",
             "key": "connectorKey",
-            "value": "${armorvox-twilio-connector-accesskey}"
+            "value": "{{widgets.get_config.parsed.connector_key}}"
           },
           {
             "index": "4",
-            "key": "connector_server_local",
-            "value": "${armorvox-twilio-connector-host}"
-          },
-          {
             "key": "functions_host",
-            "value": "${twilio-functions-webhook-host}"
+            "value": "{{widgets.get_config.parsed.functions_host}}"
           },
           {
+            "index": "5",
             "key": "connector_server",
-            "value": "${armorvox-twilio-connector-host}"
+            "value": "{{widgets.get_config.parsed.connector_server}}"
           }
         ],
         "offset": {
@@ -497,6 +495,29 @@
         "offset": {
           "y": 1600,
           "x": -730
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "success",
+          "next": "set_variables"
+        },
+        {
+          "event": "fail"
+        }
+      ],
+      "type": "run-function",
+      "name": "get_config",
+      "properties": {
+        "url": "https://twiml-flow-3105-dev.twil.io/getConfig",
+        "function_sid": "ZHb981996bc0e8517e8f4ad72370c2f0f9",
+        "service_sid": "ZSc8e85bd2d65af5061e8817f73a7bb575",
+        "environment_sid": "ZE86955aab4ab97636352260466695ea43",
+        "offset": {
+          "y": -280,
+          "x": -650
         }
       }
     }
