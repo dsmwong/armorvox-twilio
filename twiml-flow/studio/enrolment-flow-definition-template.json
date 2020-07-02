@@ -431,7 +431,8 @@
     {
       "transitions": [
         {
-          "event": "audioComplete"
+          "event": "audioComplete",
+          "next": "delete_enrolment"
         }
       ],
       "type": "say-play",
@@ -518,6 +519,210 @@
         "offset": {
           "y": -280,
           "x": -650
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "keypress",
+          "next": "keep_voiceprint"
+        },
+        {
+          "event": "speech",
+          "next": "delete_confirmed"
+        },
+        {
+          "event": "timeout",
+          "next": "keep_voiceprint"
+        }
+      ],
+      "type": "gather-input-on-call",
+      "name": "delete_enrolment",
+      "properties": {
+        "stop_gather": true,
+        "language": "en-AU",
+        "gather_language": "en-AU",
+        "say": "If you woud like to reset your voice print, please say the word reset.",
+        "loop": 1,
+        "timeout": 5,
+        "offset": {
+          "y": 640,
+          "x": -1220
+        },
+        "profanity_filter": "true",
+        "voice": "Polly.Russell",
+        "speech_timeout": "auto",
+        "finish_on_key": "#",
+        "hints": "yes no yep reset delete yeah nope nup"
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "keep_voiceprint"
+        },
+        {
+          "conditions": [
+            {
+              "type": "matches_any_of",
+              "friendly_name": "reset",
+              "arguments": [
+                "{{widgets.delete_enrolment.SpeechResult}}"
+              ],
+              "value": "Reset., Yes, Reset"
+            }
+          ],
+          "event": "match",
+          "next": "delete_voiceprint"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "delete_confirmed",
+      "properties": {
+        "input": "{{widgets.delete_enrolment.SpeechResult}}",
+        "offset": {
+          "y": 940,
+          "x": -1570
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "keep_voiceprint",
+      "properties": {
+        "say": "Ok. I'll keep that voiceprint.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1220,
+          "x": -1700
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "next": "call_delete"
+        }
+      ],
+      "type": "say-play",
+      "name": "delete_voiceprint",
+      "properties": {
+        "say": "Deleting voiceprint for this number.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1220,
+          "x": -1300
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "success",
+          "next": "did_delete"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "type": "make-http-request",
+      "name": "call_delete",
+      "properties": {
+        "url": "https://{{flow.variables.connector_server}}/deletevoiceprint",
+        "parameters": [
+          {
+            "key": "Caller",
+            "value": "{{trigger.call.From}}"
+          },
+          {
+            "key": "AccessKey",
+            "value": "{{flow.variables.connectorKey}}"
+          }
+        ],
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "offset": {
+          "y": 1460,
+          "x": -1300
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "error"
+        },
+        {
+          "conditions": [
+            {
+              "type": "equal_to",
+              "friendly_name": "If value equal_to good",
+              "arguments": [
+                "{{widgets.call_delete.parsed.status}}"
+              ],
+              "value": "good"
+            }
+          ],
+          "event": "match",
+          "next": "deletion_complete"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "did_delete",
+      "properties": {
+        "input": "{{widgets.call_delete.parsed.status}}",
+        "offset": {
+          "y": 1700,
+          "x": -1690
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "deletion_complete",
+      "properties": {
+        "say": "Deletion Complete. You can re-enrol  by calling back.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 2030,
+          "x": -1630
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "error",
+      "properties": {
+        "say": "Sorry, something went wrong with the deletion.",
+        "loop": 1,
+        "offset": {
+          "y": 2030,
+          "x": -2030
         }
       }
     }
