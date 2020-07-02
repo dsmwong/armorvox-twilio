@@ -45,7 +45,7 @@
       "transitions": [
         {
           "event": "next",
-          "next": "verify_function"
+          "next": "healthcheck"
         }
       ],
       "type": "set-variables",
@@ -246,6 +246,49 @@
         "offset": {
           "y": 1640,
           "x": -270
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "success",
+          "next": "verify_function"
+        },
+        {
+          "event": "failed",
+          "next": "notify_health_check"
+        }
+      ],
+      "type": "make-http-request",
+      "name": "healthcheck",
+      "properties": {
+        "url": "https://{{flow.variables.connector_server}}/ping",
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "offset": {
+          "y": 270,
+          "x": -510
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "next": "healthcheck"
+        }
+      ],
+      "type": "say-play",
+      "name": "notify_health_check",
+      "properties": {
+        "say": "Waking Armor Vox up!",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 560,
+          "x": -510
         }
       }
     }
