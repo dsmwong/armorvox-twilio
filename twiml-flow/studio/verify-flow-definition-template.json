@@ -233,7 +233,8 @@
     {
       "transitions": [
         {
-          "event": "audioComplete"
+          "event": "audioComplete",
+          "next": "increment_attemp"
         }
       ],
       "type": "say-play",
@@ -244,8 +245,8 @@
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 1640,
-          "x": -270
+          "y": 920,
+          "x": -560
         }
       }
     },
@@ -289,6 +290,78 @@
         "offset": {
           "y": 560,
           "x": -510
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "next",
+          "next": "check_count"
+        }
+      ],
+      "type": "set-variables",
+      "name": "increment_attemp",
+      "properties": {
+        "variables": [
+          {
+            "key": "count",
+            "value": "{{flow.variables.count | plus: 1}}"
+          }
+        ],
+        "offset": {
+          "y": 1120,
+          "x": -560
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "exceeded_attempts"
+        },
+        {
+          "conditions": [
+            {
+              "type": "less_than",
+              "friendly_name": "If value less_than 5",
+              "arguments": [
+                "{{flow.variables.count}}"
+              ],
+              "value": "5"
+            }
+          ],
+          "event": "match",
+          "next": "verify_function"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "check_count",
+      "properties": {
+        "input": "{{flow.variables.count}}",
+        "offset": {
+          "y": 1320,
+          "x": -570
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "exceeded_attempts",
+      "properties": {
+        "say": "Sorry, you have exceeded your attempts",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1580,
+          "x": -930
         }
       }
     }
