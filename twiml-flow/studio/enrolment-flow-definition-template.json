@@ -95,10 +95,12 @@
           "next": "submit_SpeechResult"
         },
         {
-          "event": "timeout"
+          "event": "timeout",
+          "next": "global_error"
         },
         {
-          "event": "fail"
+          "event": "fail",
+          "next": "global_error"
         }
       ],
       "type": "add-twiml-redirect",
@@ -174,7 +176,8 @@
           "next": "speech_matched"
         },
         {
-          "event": "failed"
+          "event": "failed",
+          "next": "global_error"
         }
       ],
       "type": "make-http-request",
@@ -222,7 +225,8 @@
           "next": "check_success"
         },
         {
-          "event": "failed"
+          "event": "failed",
+          "next": "global_error"
         }
       ],
       "type": "make-http-request",
@@ -372,7 +376,8 @@
           "next": "check"
         },
         {
-          "event": "failed"
+          "event": "failed",
+          "next": "global_error"
         }
       ],
       "type": "make-http-request",
@@ -506,7 +511,8 @@
           "next": "set_variables"
         },
         {
-          "event": "fail"
+          "event": "fail",
+          "next": "global_error"
         }
       ],
       "type": "run-function",
@@ -634,7 +640,8 @@
           "next": "did_delete"
         },
         {
-          "event": "failed"
+          "event": "failed",
+          "next": "global_error"
         }
       ],
       "type": "make-http-request",
@@ -723,6 +730,49 @@
         "offset": {
           "y": 2030,
           "x": -2030
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "type": "send-message",
+      "name": "send_callsid",
+      "properties": {
+        "body": "Please reference CallSID {{trigger.call.CallSid}}  for Enrolment Flow {{flow.flow_sid}}",
+        "from": "{{flow.channel.address}}",
+        "service": "{{trigger.message.InstanceSid}}",
+        "to": "{{contact.channel.address}}",
+        "offset": {
+          "y": 1340,
+          "x": 1230
+        },
+        "channel": "{{trigger.message.ChannelSid}}"
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "next": "send_callsid"
+        }
+      ],
+      "type": "say-play",
+      "name": "global_error",
+      "properties": {
+        "say": "Sorry something went wrong. I sent you a text message with Call ID for troubleshoorting.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1040,
+          "x": 1230
         }
       }
     }
