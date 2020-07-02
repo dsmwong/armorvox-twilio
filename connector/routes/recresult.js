@@ -5,6 +5,11 @@ const router = express.Router();
 const fs = require('fs');
 const debug = require('debug')('connector:routes:recresult');
 
+const util = require('util');
+require('dotenv').config();
+const ArmorVoxClient = require('../lib/armovox');
+const MEDIA_BASE = 'media/'
+
 function requestPrint(req) {
   debug('---------------------------------------------------------------------');
   debug('req._startTime       ' + JSON.stringify(req._startTime, null, 2));
@@ -31,7 +36,18 @@ function requestPrint(req) {
   debug('---------------------------------------------------------------------');
 }
 
-router.post('/', (req, res, next) => {
+function digitsToPhrase(enrol_code) {
+  const word_array = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  let phrase = [];
+
+  let split = enrol_code.split('');
+  split.forEach( digit => {
+    phrase.push(word_array[parseInt(digit)])
+  })
+  return phrase.join(' ');
+}
+
+router.post('/', async (req, res, next) => {
   requestPrint(req);
 
   let i = 0;
@@ -52,6 +68,35 @@ router.post('/', (req, res, next) => {
       data.recognitionResult.callSid = req.body.CallSid
       data.recognitionResult.speechResult = req.body.SpeechResult
       data.recognitionResult.confidence = req.body.Confidence
+
+      // check quality
+      let avClient = new ArmorVoxClient(process.env.ARMORVOX_ENDPOINT, process.env.ARMORVOX_GROUP);
+
+      let utterance = {}
+    
+      utterance.content = fs.readFileSync(MEDIA_BASE + data.wavfile, {encoding: 'base64'});
+      utterance.phrase = digitsToPhrase(data.customParameters.enrolCode);
+      utterance.vocab = 'en_digits';
+      utterance.feature_vector = null;
+      utterance.check_quality = true;
+      utterance.recognition = false;
+    
+      debug(utterance);
+    
+      if( req.body.Stub ) {
+        res.status(200).send({status: 'ok', message: 'stub'});
+        return;
+      }
+      
+      const resp = await avClient.checkQuality(avClient.VoiceprintType.DIGIT, utterance, req.body.mode, null)
+
+      if(resp.status !== 200 || resp.body.status !== 'good') {
+        debug(util.inspect(resp, {depth: null}));
+        res.status(resp.status).send({status: 'error', message: `Utternace did not pass quality check with status ${resp.body.status}`, data: resp.body});
+        return;
+      } else {
+        debug(util.inspect(resp, {depth: null}));
+      }
 
       debug(`writing back to ${metafile}`);
       debug(`${JSON.stringify(data, null, 2)}`)
