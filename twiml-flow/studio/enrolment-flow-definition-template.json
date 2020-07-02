@@ -17,8 +17,8 @@
       "name": "Trigger",
       "properties": {
         "offset": {
-          "y": 0,
-          "x": 0
+          "y": -230,
+          "x": -800
         }
       }
     },
@@ -36,8 +36,8 @@
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 1980,
-          "x": 130
+          "y": 2350,
+          "x": -100
         }
       }
     },
@@ -85,8 +85,8 @@
           }
         ],
         "offset": {
-          "y": 180,
-          "x": 100
+          "y": -20,
+          "x": -650
         }
       }
     },
@@ -110,8 +110,8 @@
         "method": "POST",
         "timeout": "14400",
         "offset": {
-          "y": 420,
-          "x": 100
+          "y": 900,
+          "x": -100
         }
       }
     },
@@ -133,8 +133,8 @@
           }
         ],
         "offset": {
-          "y": 880,
-          "x": 100
+          "y": 1370,
+          "x": -80
         }
       }
     },
@@ -164,8 +164,8 @@
       "properties": {
         "input": "{{flow.variables.count}}",
         "offset": {
-          "y": 1110,
-          "x": 100
+          "y": 1600,
+          "x": -80
         }
       }
     },
@@ -173,7 +173,7 @@
       "transitions": [
         {
           "event": "success",
-          "next": "increment_count"
+          "next": "speech_matched"
         },
         {
           "event": "failed"
@@ -212,8 +212,8 @@
         "method": "POST",
         "content_type": "application/x-www-form-urlencoded;charset=utf-8",
         "offset": {
-          "y": 650,
-          "x": 100
+          "y": 1130,
+          "x": -90
         }
       }
     },
@@ -244,8 +244,8 @@
         "method": "POST",
         "content_type": "application/x-www-form-urlencoded;charset=utf-8",
         "offset": {
-          "y": 1380,
-          "x": 100
+          "y": 1810,
+          "x": -80
         }
       }
     },
@@ -253,7 +253,7 @@
       "transitions": [
         {
           "event": "success",
-          "next": "enrolment_function"
+          "next": "check_enrolment"
         },
         {
           "event": "failed",
@@ -267,8 +267,8 @@
         "method": "GET",
         "content_type": "application/x-www-form-urlencoded;charset=utf-8",
         "offset": {
-          "y": 321,
-          "x": -426
+          "y": 210,
+          "x": -650
         }
       }
     },
@@ -287,8 +287,8 @@
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 560,
-          "x": -430
+          "y": 210,
+          "x": -990
         }
       }
     },
@@ -318,8 +318,8 @@
       "properties": {
         "input": "{{widgets.submit_enrolment.parsed.status}}",
         "offset": {
-          "y": 1620,
-          "x": 40
+          "y": 2040,
+          "x": -80
         }
       }
     },
@@ -337,8 +337,8 @@
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 1990,
-          "x": -550
+          "y": 2170,
+          "x": -1060
         }
       }
     },
@@ -361,10 +361,143 @@
         "service": "{{trigger.message.InstanceSid}}",
         "to": "{{contact.channel.address}}",
         "offset": {
-          "y": 1740,
-          "x": -580
+          "y": 2170,
+          "x": -690
         },
         "channel": "{{trigger.message.ChannelSid}}"
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "success",
+          "next": "check"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "type": "make-http-request",
+      "name": "check_enrolment",
+      "properties": {
+        "url": "https://{{flow.variables.connector_server}}/getvoiceprint",
+        "parameters": [
+          {
+            "key": "Caller",
+            "value": "{{trigger.call.From}}"
+          },
+          {
+            "key": "AccessKey",
+            "value": "x9F3afi3M3Pou7pssSxCZsa0ggQX0Hrw"
+          }
+        ],
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "offset": {
+          "y": 420,
+          "x": -650
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "previously_enrolled"
+        },
+        {
+          "conditions": [
+            {
+              "type": "equal_to",
+              "friendly_name": "If value equal_to not_enrolled",
+              "arguments": [
+                "{{widgets.check_enrolment.parsed.status}}"
+              ],
+              "value": "not_enrolled"
+            }
+          ],
+          "event": "match",
+          "next": "enrolment_function"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "check",
+      "properties": {
+        "input": "{{widgets.check_enrolment.parsed.status}}",
+        "offset": {
+          "y": 680,
+          "x": -430
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "previously_enrolled",
+      "properties": {
+        "say": "Looks like you've previously enrolled using the number you're calling from. You are good to verify or ask for your number to be reset.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 910,
+          "x": -660
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "try_again"
+        },
+        {
+          "conditions": [
+            {
+              "type": "equal_to",
+              "friendly_name": "If value equal_to ok",
+              "arguments": [
+                "{{widgets.submit_SpeechResult.parsed.status}}"
+              ],
+              "value": "ok"
+            }
+          ],
+          "event": "match",
+          "next": "increment_count"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "speech_matched",
+      "properties": {
+        "input": "{{widgets.submit_SpeechResult.parsed.status}}",
+        "offset": {
+          "y": 1340,
+          "x": -770
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "next": "enrolment_function"
+        }
+      ],
+      "type": "say-play",
+      "name": "try_again",
+      "properties": {
+        "say": "Sorry, what you said did not match the expected phrase. Please try again.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1600,
+          "x": -730
+        }
       }
     }
   ],

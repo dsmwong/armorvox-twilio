@@ -119,7 +119,7 @@
       "transitions": [
         {
           "event": "success",
-          "next": "submit_verification"
+          "next": "speech_matched"
         },
         {
           "event": "failed"
@@ -362,6 +362,57 @@
         "offset": {
           "y": 1580,
           "x": -930
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "try_again"
+        },
+        {
+          "conditions": [
+            {
+              "type": "equal_to",
+              "friendly_name": "If value equal_to ok",
+              "arguments": [
+                "{{widgets.submit_SpeechResult.parsed.status}}"
+              ],
+              "value": "ok"
+            }
+          ],
+          "event": "match",
+          "next": "submit_verification"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "speech_matched",
+      "properties": {
+        "input": "{{widgets.submit_SpeechResult.parsed.status}}",
+        "offset": {
+          "y": 720,
+          "x": 610
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "next": "verify_function"
+        }
+      ],
+      "type": "say-play",
+      "name": "try_again",
+      "properties": {
+        "say": "Sorry, what you said did not match the expected phrase. Please try again.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 950,
+          "x": 840
         }
       }
     }
