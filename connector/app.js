@@ -12,6 +12,7 @@ const recordRouter = require('./routes/ws-record');
 const recresultRouter = require('./routes/recresult');
 
 const pingRouter = require('./routes/ping');
+const getVoiceprintRouter = require('./routes/getvoiceprint');
 
 const enrolRouter = require('./routes/enrol');
 const verifyRouter = require('./routes/verify');
@@ -32,6 +33,7 @@ app.use('/record', recordRouter);
 app.use('/recresult', recresultRouter);
 
 app.use('/ping', pingRouter);
+app.use('/getvoiceprint', getVoiceprintRouter);
 
 app.use('/enrol', enrolRouter);
 app.use('/verify', verifyRouter); 
