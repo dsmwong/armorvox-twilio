@@ -13,6 +13,7 @@ const recresultRouter = require('./routes/recresult');
 
 const pingRouter = require('./routes/ping');
 const getVoiceprintRouter = require('./routes/getvoiceprint');
+const deleteVoiceprintRouter = require('./routes/deletevoiceprint');
 
 const enrolRouter = require('./routes/enrol');
 const verifyRouter = require('./routes/verify');
@@ -34,6 +35,7 @@ app.use('/recresult', recresultRouter);
 
 app.use('/ping', pingRouter);
 app.use('/getvoiceprint', getVoiceprintRouter);
+app.use('/deletevoiceprint', deleteVoiceprintRouter);
 
 app.use('/enrol', enrolRouter);
 app.use('/verify', verifyRouter); 
