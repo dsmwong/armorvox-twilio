@@ -11,6 +11,8 @@ const usersRouter = require('./routes/users');
 const recordRouter = require('./routes/ws-record');
 const recresultRouter = require('./routes/recresult');
 
+const pingRouter = require('./routes/ping');
+
 const enrolRouter = require('./routes/enrol');
 const verifyRouter = require('./routes/verify');
 const checkQualityRouter = require('./routes/checkquality');
@@ -28,6 +30,8 @@ app.use('/users', usersRouter);
 
 app.use('/record', recordRouter);
 app.use('/recresult', recresultRouter);
+
+app.use('/ping', pingRouter);
 
 app.use('/enrol', enrolRouter);
 app.use('/verify', verifyRouter); 

@@ -8,5 +8,5 @@
 
 - [X] utternace.recognition = false
 - [ ] checkQuality after each recognition, if quality is poor, add more questions. 
-- [ ] logic to avoid double digits and ensure a good spread of numbers
-- [ ] Verification using Phone Number or known numbers e.g. Credit Card Number / Account Number etc. 
+- [X] logic to avoid double digits and ensure a good spread of numbers
+- [X] Verification using Phone Number or known numbers e.g. Credit Card Number / Account Number etc. 
