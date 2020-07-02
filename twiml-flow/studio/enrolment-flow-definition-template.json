@@ -36,8 +36,8 @@
         "language": "en-AU",
         "loop": 1,
         "offset": {
-          "y": 1640,
-          "x": 110
+          "y": 1980,
+          "x": 130
         }
       }
     },
@@ -221,7 +221,7 @@
       "transitions": [
         {
           "event": "success",
-          "next": "enrolment_complete"
+          "next": "check_success"
         },
         {
           "event": "failed"
@@ -290,6 +290,81 @@
           "y": 560,
           "x": -430
         }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "noMatch",
+          "next": "send_error_status"
+        },
+        {
+          "conditions": [
+            {
+              "type": "equal_to",
+              "friendly_name": "If value equal_to good",
+              "arguments": [
+                "{{widgets.submit_enrolment.parsed.status}}"
+              ],
+              "value": "good"
+            }
+          ],
+          "event": "match",
+          "next": "enrolment_complete"
+        }
+      ],
+      "type": "split-based-on",
+      "name": "check_success",
+      "properties": {
+        "input": "{{widgets.submit_enrolment.parsed.status}}",
+        "offset": {
+          "y": 1620,
+          "x": 40
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "type": "say-play",
+      "name": "ennrolment_failed",
+      "properties": {
+        "say": "Sorry, your enrolment was not successful. I sent you an SMS with more details.",
+        "voice": "Polly.Russell",
+        "language": "en-AU",
+        "loop": 1,
+        "offset": {
+          "y": 1990,
+          "x": -550
+        }
+      }
+    },
+    {
+      "transitions": [
+        {
+          "event": "sent",
+          "next": "ennrolment_failed"
+        },
+        {
+          "event": "failed",
+          "next": "ennrolment_failed"
+        }
+      ],
+      "type": "send-message",
+      "name": "send_error_status",
+      "properties": {
+        "body": "Unsuccessful enrolment with {{widgets.submit_enrolment.parsed.status}}",
+        "from": "{{flow.channel.address}}",
+        "service": "{{trigger.message.InstanceSid}}",
+        "to": "{{contact.channel.address}}",
+        "offset": {
+          "y": 1740,
+          "x": -580
+        },
+        "channel": "{{trigger.message.ChannelSid}}"
       }
     }
   ],
