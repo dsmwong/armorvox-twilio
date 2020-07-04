@@ -11,7 +11,7 @@ const ET_COUNTUP = 'CountUp'       // Count up from 'one to nine'
 const ET_COUNTDOWN = 'CountDown'   // Count down from 'nine to one'
 const ET_FOURTWO = 'FourTwo'       // Repeated 4 Digit String
 
-const EnrolTypeOrder = [
+const ENROLMENT_STRATEGY = [
   ET_CALLER,
   ET_COUNTUP,
   ET_CALLER, 
@@ -82,6 +82,13 @@ exports.handler = function(context, event, callback) {
     console.log('Event ' + JSON.stringify(event));
   }
   let twiml = new Twilio.twiml.VoiceResponse();
+
+  let strategy = ENROLMENT_STRATEGY;
+  // override Enrolment Strategy if context.ENROLMENT_STRATEGY is set
+  if( context.ENROLMENT_STRATEGY ) {
+    console.log(context.ENROLMENT_STRATEGY);
+    strategy = JSON.parse(context.ENROLMENT_STRATEGY);
+  }
   
   // https://cloud.google.com/speech-to-text/docs/class-tokens
   let recHints = (event.enrolType === ET_ALPHANUM) ? '$OOV_CLASS_ALPHANUMERIC_SEQUENCE' : '$OOV_CLASS_DIGIT_SEQUENCE'
@@ -93,7 +100,9 @@ exports.handler = function(context, event, callback) {
     voice: VOICE,
     language: LANG
   })
-  const enrolType = (event.enrolType) ? event.enrolType : EnrolTypeOrder[event.Count];
+
+  // enrolment type is defined by the ENROLMENT_STRATEGY, if the Count > strategy array lenght, it will start from the begining of the list
+  const enrolType = (event.enrolType) ? event.enrolType : strategy[(event.Count % strategy.length)];
 
   const { phrase, literal } = getPhrase({
     enrolType: enrolType,
