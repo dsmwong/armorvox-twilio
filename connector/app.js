@@ -6,7 +6,6 @@ const logger = require('morgan');
 const debug = require('debug')('connector:app');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 
 const recordRouter = require('./routes/ws-record');
 const recresultRouter = require('./routes/recresult');
@@ -28,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 app.use('/record', recordRouter);
 app.use('/recresult', recresultRouter);
