@@ -34,7 +34,11 @@ The following Enrolment Type will take into account `maxdigits`, `NoRepeat`, `No
 | AUTH_TOKEN    | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console)|
 | CONNECTOR_SERVER    | Server hosting the armorvox connector e.g. armovox.ngrok.io |
 
-## TO-DO / Considerations
+### Storing Studio Flows
 
-- It may be worthwhile to consider moving the entire flow into Twiml flow rather than using part Studio. It would definitely be cleaner. 
-- Studio Limitations: As the Studio Twiml Redirect Widget does not allow variable to be pased, parameters leading into enrolment flow is hard coded.
+Install Prerequisite: [jq](https://stedolan.github.io/jq/)
+
+```
+$ twilio api:studio:v2:flows:fetch -o=json --sid=FWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | jq '.[0].definition' > enrolment-flow-definition-template.json
+$ twilio api:studio:v2:flows:fetch -o=json --sid=FWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | jq '.[0].definition' > verify-flow-definition-template.json
+```
