@@ -80,6 +80,11 @@
             "index": "5",
             "key": "connector_server",
             "value": "{{widgets.get_config.parsed.connector_server}}"
+          },
+          {
+            "index": "6",
+            "key": "maxLoop",
+            "value": "{{widgets.get_config.parsed.enrolment_loop}}"
           }
         ],
         "offset": {
@@ -152,7 +157,7 @@
               "arguments": [
                 "{{flow.variables.count}}"
               ],
-              "value": "4"
+              "value": "{{flow.variables.maxLoop}}"
             }
           ],
           "event": "match",
