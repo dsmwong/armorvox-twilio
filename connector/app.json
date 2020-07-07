@@ -1,0 +1,7 @@
+{
+  "name": "Twilio ArmorVox Connector",
+  "description": "Twilio ArmorVox Connector provides the WebSocket and API endpoint to service the Enrolment and Verify Flows",
+  "repository": "https://github.com/dsmwong/armorvox-twilio-connector.git",
+  "keywords": ["twilio", "auraya", "armorvox", "voice biometric"]
+}
+
