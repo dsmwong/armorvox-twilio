@@ -2,6 +2,28 @@
   "name": "Twilio ArmorVox Connector",
   "description": "Twilio ArmorVox Connector provides the WebSocket and API endpoint to service the Enrolment and Verify Flows",
   "repository": "https://github.com/dsmwong/armorvox-twilio-connector.git",
-  "keywords": ["twilio", "auraya", "armorvox", "voice biometric"]
+  "keywords": ["twilio", "auraya", "armorvox", "voice biometric"],
+  "env": {
+    "ARMORVOX_ENDPOINT": {
+      "description": "This is the endpoint URL provide by ArmorVox",
+      "value": "<armorvox-endpoint>",
+      "required": true
+    },
+    "ARMORVOX_GROUP": {
+      "description": "This is the unique group name provide by Auraya ArmorVox.",
+      "value": "<armorvox-group>",
+      "required": true
+    },
+    "ARMORVOX_CHANNEL": {
+      "description": "Channel descriptor of the Application.",
+      "value": "twilioivr",
+      "required": true
+    },
+    "ACCESS_KEY": {
+      "description": "Secret Access Key required for by Twilio Function to connect to this app.",
+      "generator": "secret",
+      "required": true
+    }
+  }
 }
 
