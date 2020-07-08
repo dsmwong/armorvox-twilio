@@ -27,7 +27,7 @@ function getPhrase(opts) {
 
   let digitArr = [];
 
-  if(opts.enrolType === ET_CALLER )    { return { phrase: 'Please say the phone number you are calling from', literal: opts.caller.replace(/\+/, '').replace(/^61/, '0')}};
+  if(opts.enrolType === ET_CALLER )    { return { phrase: 'Please say the phone number you are calling from', literal: opts.caller.replace(/\+/, '').replace(/^1*61/, '0')}};
   if(opts.enrolType === ET_COUNTUP )   { return { phrase: 'Please count up from one to nine', literal: '123456789'}};
   if(opts.enrolType === ET_COUNTDOWN ) { return { phrase: 'Please count down from nine to one', literal: '987654321'}};
 
