@@ -25,17 +25,17 @@ exports.handler = function(context, event, callback) {
   const say = twiml.say({
     voice: VOICE,
     language: LANG
-  } ,'You said, ');
+  } ,'');
   
-  const prosody = say.prosody({
-    rate: '65%'
-  }, '');
+  // const prosody = say.prosody({
+  //   rate: '65%'
+  // }, '');
 
-  const sayAs = prosody.addChild('say-as', {
-    'interpret-as': 'spell-out'
-  });
+  // const sayAs = prosody.addChild('say-as', {
+  //   'interpret-as': 'spell-out'
+  // });
 
-  sayAs.addText(event.SpeechResult);
+  // sayAs.addText(event.SpeechResult);
   
   twiml.redirect(encodeURI(return_url +'&SpeechResult=' + event.SpeechResult + '&Confidence=' + event.Confidence));
   
