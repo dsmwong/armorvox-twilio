@@ -16,6 +16,7 @@ Currently flow's connector endpoint is pointing to my localhost hosted connector
 | NoZeros | (Optional) Boolean value defining if Zero (0) is allowed. |
 
 The following Enrolment Type will take into account `maxdigits`, `NoRepeat`, `NoZeros`
+
 | Enrol Type | Description |
 | :-- | :-- |
 | `Alphanumeric`| Alphanumeric String `[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ]` |
