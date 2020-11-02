@@ -35,7 +35,7 @@ exports.handler = function(context, event, callback) {
   //   'interpret-as': 'spell-out'
   // });
 
-  sayAs.addText(event.SpeechResult);
+  //sayAs.addText(event.SpeechResult);
   
   twiml.redirect(encodeURI(return_url +'&SpeechResult=' + event.SpeechResult + '&Confidence=' + event.Confidence));
   
