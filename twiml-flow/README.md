@@ -34,6 +34,9 @@ The following Enrolment Type will take into account `maxdigits`, `NoRepeat`, `No
 | ACCOUNT_SID   | Your primary Twilio account identifier - find this [in the Console](https://www.twilio.com/console)|
 | AUTH_TOKEN    | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console)|
 | CONNECTOR_SERVER    | Server hosting the armorvox connector e.g. armovox.ngrok.io |
+| CONNECTOR_KEY    | Connector Access Key - this should match that in connector |
+| ENROLMENT_STRATEGY    | Array containing enrolment type, valid value as described above.  |
+| ENROLMENT_LOOP    | Number of questions to ask in Enrolment Loop |
 
 ### Source Control of Studio Flows
 
