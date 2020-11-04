@@ -114,7 +114,7 @@ Studio Flows (CLI)
 "type": "run-function",
       "name": "get_config",
       "properties": {
-        "url": "https://${serverless-domain}/getConfig",                   // Replace ${serverless-domain} with output from deploy step 
+        "url": "https://${serverless-domain}/getConfig",              // Replace ${serverless-domain} with output from deploy step 
         "function_sid": "ZHxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",         // Replace with /getConfig function SID from validate step should start with ZH
         "service_sid": "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",          // Replace with Service SID from deploy step
         "environment_sid": "ZExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",      // Replace with Environment SID from deployment step
@@ -130,7 +130,7 @@ $ twilio api:studio:v2:flows:create --commit-message "Verify Flow" --friendly-na
 # Update Enrolment Flow
 $ twilio api:studio:v2:flows:update --commit-message "Enrolment Flow" --sid FWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --status draft --definition "`cat studio/enrolment-flow-definition-template.json`"
 
-# Deploy Verify Flow
+# Update Verify Flow
 $ twilio api:studio:v2:flows:update --commit-message "Verify Flow" --sid FWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --status draft --definition "`cat studio/verify-flow-definition-template.json`"
 ```
 
