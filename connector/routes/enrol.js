@@ -98,7 +98,8 @@ router.post('/', (req, res, next) => {
     res.status(200).send({status: 'ok', message: 'stub'});
     return;
   }
-  
+  // [TODO] if enrolType FourTwo then use VoiceprintType.TPD
+
   avClient.enrol(cleanPhone, avClient.VoiceprintType.DIGIT, utterances, process.env.ARMORVOX_CHANNEL, null).then( (resp) => {
     debug(util.inspect(resp, {depth: null}));
     res.status(resp.status).send(resp.body);
