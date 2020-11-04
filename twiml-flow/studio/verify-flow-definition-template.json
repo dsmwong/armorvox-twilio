@@ -331,7 +331,7 @@
               "arguments": [
                 "{{flow.variables.count}}"
               ],
-              "value": "5"
+              "value": "3"
             }
           ],
           "event": "match",
@@ -432,10 +432,10 @@
       "type": "run-function",
       "name": "get_config",
       "properties": {
-        "url": "https://twiml-flow-3105-dev.twil.io/getConfig",
-        "function_sid": "ZHb981996bc0e8517e8f4ad72370c2f0f9",
-        "service_sid": "ZSc8e85bd2d65af5061e8817f73a7bb575",
-        "environment_sid": "ZE86955aab4ab97636352260466695ea43",
+        "url": "https://{{serverless-domain-url}}/getConfig",
+        "function_sid": "ZHxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "service_sid": "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "environment_sid": "ZExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "offset": {
           "y": -140,
           "x": 110
